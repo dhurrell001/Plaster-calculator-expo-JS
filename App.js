@@ -2,8 +2,24 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import HeadImage from "./components/headerImage";
 import LabeledTextInput from "./components/textInput";
+import { useState } from "react";
 
 export default function App() {
+  const [lengthInput,setLengthInput] = useState("");
+  const [widthInput,setWidthInput] = useState("");
+  const [outputResult,setOutputResult] = useState("null");
+
+  const calculateSum() =>{
+    const length = parseFloat(lengthInput);
+    const width = parseFloat(widthInput);
+
+    if (!isNaN(length)&&!isNaN(width)){
+      setOutputResult(length*width)
+    }
+    else{
+      setOutputResult("Please enter valid numbers");
+    }
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Plaster Calculator</Text>
