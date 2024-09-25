@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, TextInput, StyleSheet } from "react-native";
 
-function TextOutput({ result }) {
+function TextOutput({ sum }) {
   return (
     <View>
-      <Text>{result.content}</Text>
+      <Text>{sum}</Text>
     </View>
   );
 }
+
+export default TextOutput;

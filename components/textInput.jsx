@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Keyboard,
+  h,
+} from "react-native";
 
-function LabeledTextInput({ label, placeholder }) {
-  const [text, setText] = useState("");
-
+function LabeledTextInput({ label, placeholder, value, onChangeText }) {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -11,8 +17,10 @@ function LabeledTextInput({ label, placeholder }) {
         <TextInput
           style={styles.input}
           placeholder={placeholder}
-          value={text}
-          onChangeText={setText}
+          value={value}
+          onChangeText={onChangeText}
+          keyboardType="numeric"
+          onSubmitEditing={Keyboard.dismiss}
         />
       </View>
     </SafeAreaView>

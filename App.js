@@ -1,33 +1,45 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import HeadImage from "./components/headerImage";
 import LabeledTextInput from "./components/textInput";
 import { useState } from "react";
+import TextOutput from "./components/textOutput";
 
 export default function App() {
-  const [lengthInput,setLengthInput] = useState("");
-  const [widthInput,setWidthInput] = useState("");
-  const [outputResult,setOutputResult] = useState("null");
+  const [lengthInput, setLengthInput] = useState("");
+  const [widthInput, setWidthInput] = useState("");
+  const [outputResult, setOutputResult] = useState("null");
 
-  const calculateSum() =>{
+  const calculateSum = () => {
     const length = parseFloat(lengthInput);
     const width = parseFloat(widthInput);
 
-    if (!isNaN(length)&&!isNaN(width)){
-      setOutputResult(length*width)
-    }
-    else{
+    if (!isNaN(length) && !isNaN(width)) {
+      setOutputResult(length * width);
+    } else {
       setOutputResult("Please enter valid numbers");
     }
-  }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Plaster Calculator</Text>
       <HeadImage />
-      <LabeledTextInput label={"Please enter Width : "} placeholder={"0"} />
-      <LabeledTextInput label={"Please enter Length : "} placeholder={"0"} />
-      <LabeledTextInput label={"Please enter thickness : "} placeholder={"0"} />
-
+      <LabeledTextInput
+        label={"Please enter Width : "}
+        placeholder={"0"}
+        value={widthInput}
+        onChangeText={setWidthInput}
+      />
+      <LabeledTextInput
+        label={"Please enter Length : "}
+        placeholder={"0"}
+        value={lengthInput}
+        onChangeText={setLengthInput}
+      />
+      {/* <LabeledTextInput label={"Please enter thickness : "} placeholder={"0"} /> */}
+      {/* Button to trigger calculation */}
+      <Button title="Calculate Sum" onPress={calculateSum} />
+      <TextOutput sum={outputResult}></TextOutput>
       <StatusBar style="auto" />
     </View>
   );
