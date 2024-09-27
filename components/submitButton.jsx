@@ -12,6 +12,8 @@ function SubmitButton({ title, onPress }) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 15,
+    backgroundColor: "white",
+    color: "black",
   },
 });
 export default SubmitButton;
