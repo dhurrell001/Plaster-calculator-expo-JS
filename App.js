@@ -1,9 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Keyboard } from "react-native";
+import { useState } from "react";
+
+// Custom components
 import HeadImage from "./components/headerImage";
 import LabeledTextInput from "./components/textInput";
-import { useState } from "react";
+
 import TextOutput from "./components/textOutput";
+import SubmitButton from "./components/submitButton";
+import HorizontalRule from "./components/horizontalRule";
 
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
@@ -16,6 +21,7 @@ export default function App() {
 
     if (!isNaN(length) && !isNaN(width)) {
       setOutputResult(length * width);
+      Keyboard.dismiss();
     } else {
       setOutputResult("Please enter valid numbers");
     }
@@ -23,6 +29,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Plaster Calculator</Text>
+      <HorizontalRule />
       <HeadImage />
       <LabeledTextInput
         label={"Please enter Width : "}
@@ -38,8 +45,10 @@ export default function App() {
       />
       {/* <LabeledTextInput label={"Please enter thickness : "} placeholder={"0"} /> */}
       {/* Button to trigger calculation */}
-      <Button title="Calculate Sum" onPress={calculateSum} />
-      <TextOutput sum={outputResult}></TextOutput>
+      <SubmitButton title="Calculate" onPress={calculateSum} />
+      <HorizontalRule />
+      <Text style={{ color: "blue" }}>RESULTS</Text>
+      <TextOutput label={"Area Total :"} sum={outputResult}></TextOutput>
       <StatusBar style="auto" />
     </View>
   );
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // backgroundColor: "blue",
+    backgroundColor: "#D3D3D3",
     alignItems: "center",
     marginTop: 30,
     // justifyContent: "space-around",

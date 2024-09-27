@@ -6,7 +6,6 @@ import {
   TextInput,
   StyleSheet,
   Keyboard,
-  h,
 } from "react-native";
 
 function LabeledTextInput({ label, placeholder, value, onChangeText }) {
@@ -20,7 +19,7 @@ function LabeledTextInput({ label, placeholder, value, onChangeText }) {
           value={value}
           onChangeText={onChangeText}
           keyboardType="numeric"
-          onSubmitEditing={Keyboard.dismiss}
+          // onSubmitEditing={Keyboard.dismiss()}
         />
       </View>
     </SafeAreaView>
@@ -31,8 +30,8 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 0.1, // Ensure the SafeAreaView takes up the whole screen
     // backgroundColor: "purple", // You can adjust this to match your theme
-    marginBottom: 5,
-    marginTop: 5,
+    marginBottom: 10,
+    marginTop: 10,
   },
   container: {
     marginVertical: 10,
