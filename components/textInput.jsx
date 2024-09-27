@@ -33,13 +33,6 @@ function LabeledTextInput({ label, placeholder, value, onChangeText }) {
 
 // Custom styles for LabeledTextInput component
 const styles = StyleSheet.create({
-  // Style for SafeAreaView, ensuring it does not overlap system UI like status bar
-  safeArea: {
-    flex: 0.1, // Minimal flex size
-    marginBottom: 10, // Bottom margin for spacing
-    marginTop: 10, // Top margin for spacing
-  },
-
   // Container style for aligning label and input horizontally
   container: {
     marginVertical: 10, // Vertical margin for spacing
