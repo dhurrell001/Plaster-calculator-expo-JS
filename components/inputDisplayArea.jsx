@@ -13,8 +13,10 @@ import SubmitButton from "./submitButton";
 function InputDisplayArea({
   lengthInput,
   widthInput,
+  thicknessInput,
   setLengthInput,
   setWidthInput,
+  setThicknessInput,
 }) {
   const calculateSum = () => {
     const length = parseFloat(lengthInput);
@@ -41,7 +43,12 @@ function InputDisplayArea({
         value={lengthInput}
         onChangeText={setLengthInput}
       />
-      {/* <LabeledTextInput label={"Please enter thickness : "} placeholder={"0"} /> */}
+      <LabeledTextInput
+        label={"Please enter thickness : "}
+        placeholder={"0"}
+        value={thicknessInput}
+        onChangeText={setThicknessInput}
+      />
       {/* Button to trigger calculation */}
       <SubmitButton title="Calculate" onPress={calculateSum} />
     </View>
