@@ -9,43 +9,31 @@ import LabeledTextInput from "./components/textInput";
 import TextOutput from "./components/textOutput";
 import SubmitButton from "./components/submitButton";
 import HorizontalRule from "./components/horizontalRule";
+import InputDisplayArea from "./components/inputDisplayArea";
 
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
   const [widthInput, setWidthInput] = useState("");
   const [outputResult, setOutputResult] = useState("null");
 
-  const calculateSum = () => {
-    const length = parseFloat(lengthInput);
-    const width = parseFloat(widthInput);
-
-    if (!isNaN(length) && !isNaN(width)) {
-      setOutputResult(length * width);
-      Keyboard.dismiss();
-    } else {
-      setOutputResult("Please enter valid numbers");
-    }
-  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Plaster Calculator</Text>
       <HorizontalRule />
       <HeadImage />
-      <LabeledTextInput
-        label={"Please enter Width : "}
-        placeholder={"0"}
-        value={widthInput}
-        onChangeText={setWidthInput}
+      <InputDisplayArea
+        lengthInput={lengthInput}
+        widthInput={widthInput}
+        setLengthInput={setLengthInput}
+        setWidthInput={setWidthInput}
       />
       <LabeledTextInput
-        label={"Please enter Length : "}
-        placeholder={"0"}
-        value={lengthInput}
+        label="hello"
+        placeholder={"oo"}
+        value={10}
         onChangeText={setLengthInput}
       />
-      {/* <LabeledTextInput label={"Please enter thickness : "} placeholder={"0"} /> */}
-      {/* Button to trigger calculation */}
-      <SubmitButton title="Calculate" onPress={calculateSum} />
+
       <HorizontalRule />
       <Text style={{ color: "blue" }}>RESULTS</Text>
       <TextOutput label={"Area Total :"} sum={outputResult}></TextOutput>
