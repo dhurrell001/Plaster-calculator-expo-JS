@@ -10,7 +10,7 @@ import {
 
 function LabeledTextInput({ label, placeholder, value, onChangeText }) {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.label}>{label}</Text>
         <TextInput
@@ -29,7 +29,7 @@ function LabeledTextInput({ label, placeholder, value, onChangeText }) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 0.1, // Ensure the SafeAreaView takes up the whole screen
-    // backgroundColor: "purple", // You can adjust this to match your theme
+
     marginBottom: 10,
     marginTop: 10,
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 5,
-
+    // backgroundColor: "purple", // You can adjust this to match your theme
     color: "#333",
   },
   input: {
