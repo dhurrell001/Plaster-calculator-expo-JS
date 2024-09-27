@@ -15,6 +15,7 @@ export default function App() {
   const [lengthInput, setLengthInput] = useState("");
   const [widthInput, setWidthInput] = useState("");
   const [outputResult, setOutputResult] = useState("null");
+  const [thicknessInput, setThicknessInput] = useState("");
 
   return (
     <View style={styles.container}>
@@ -24,14 +25,10 @@ export default function App() {
       <InputDisplayArea
         lengthInput={lengthInput}
         widthInput={widthInput}
+        thicknessInput={thicknessInput}
         setLengthInput={setLengthInput}
         setWidthInput={setWidthInput}
-      />
-      <LabeledTextInput
-        label="hello"
-        placeholder={"oo"}
-        value={10}
-        onChangeText={setLengthInput}
+        setThicknessInput={setThicknessInput}
       />
 
       <HorizontalRule />
