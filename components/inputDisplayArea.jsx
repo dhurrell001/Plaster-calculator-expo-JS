@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
     flexDirection: "column", // Stack child elements (input fields) vertically
     alignItems: "center", // Center all child elements horizontally
     marginVertical: 20, // Add vertical spacing to the container
+    backgroundColor: "silver",
+    borderRadius: 10,
+    width: "70%",
   },
 
   // Optional style for a title if added later
