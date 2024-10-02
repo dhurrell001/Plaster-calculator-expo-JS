@@ -11,7 +11,7 @@ function TextOutput({ label, sum }) {
     </View>
   );
 }
-
+// Styling to mirror style of input fields
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: "flex-start",
     alignItems: "center",
+    backgroundColor: "silver",
+    borderRadius: 10,
+    height: 200,
+    width: "65%",
   },
   label: {
     fontSize: 16,
