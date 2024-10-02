@@ -11,6 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "assets/*" // This pattern includes all files in the assets folder
+    ],
     "ios": {
       "supportsTablet": true
     },

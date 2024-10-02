@@ -18,6 +18,10 @@ import SubmitButton from "./components/submitButton";
 import HorizontalRule from "./components/horizontalRule";
 import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
+import * as SQLite from "expo-sqlite";
+import PlasterDropdown from "./components/plasterDropdown";
+
+const db = SQLite.openDatabase("PlasterDatabase.sqlite");
 
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
@@ -39,9 +43,10 @@ export default function App() {
           setWidthInput={setWidthInput}
           setThicknessInput={setThicknessInput}
         />
-
+        <PlasterDropdown />
         <HorizontalRule />
         <Text style={{ color: "white", fontSize: 25 }}>Results</Text>
+
         <HorizontalRule />
         <OutputDisplayArea
           label={"Area Total :"}
