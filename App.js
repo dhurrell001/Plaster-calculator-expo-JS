@@ -1,23 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Keyboard,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useState } from "react";
 
 // Custom components
 import HeadImage from "./components/headerImage";
 import LabeledTextInput from "./components/textInput";
-
 import TextOutput from "./components/textOutput";
 import SubmitButton from "./components/submitButton";
 import HorizontalRule from "./components/horizontalRule";
 import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
+
+import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
 
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
@@ -57,11 +51,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // backgroundColor: "#D3D3D3",
     backgroundColor: "steelblue",
     alignItems: "center",
     marginTop: 30,
-    // justifyContent: "space-around",
     width: "100%",
   },
   title: {
@@ -71,10 +63,10 @@ const styles = StyleSheet.create({
     color: "white",
   },
   scrollViewContent: {
-    flexGrow: 1, // Ensures ScrollView uses available space
-    justifyContent: "center", // Align content vertically in center
-    alignItems: "center", // Align content horizontally in center
-    paddingVertical: 30, // Add padding at the top and bottom
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 30,
     backgroundColor: "steelblue",
     width: "100%",
   },
