@@ -20,37 +20,30 @@ export default function App() {
   const [thicknessInput, setThicknessInput] = useState("");
 
   return (
-    <SQLiteProvider
-      databaseName="PlasterDatabase.sqlite"
-      assetSource={{ assetId: require("./assets/PlasterDatabase.db") }}
-    >
-      {/* Wrap your ScrollView and app UI with SQLiteProvider */}
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Plaster Calculator</Text>
+        <HorizontalRule />
+        {/* <HeadImage /> */}
+        <InputDisplayArea
+          lengthInput={lengthInput}
+          widthInput={widthInput}
+          thicknessInput={thicknessInput}
+          setLengthInput={setLengthInput}
+          setWidthInput={setWidthInput}
+          setThicknessInput={setThicknessInput}
+        />
 
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Plaster Calculator</Text>
-          <HorizontalRule />
-          {/* <HeadImage /> */}
-          <InputDisplayArea
-            lengthInput={lengthInput}
-            widthInput={widthInput}
-            thicknessInput={thicknessInput}
-            setLengthInput={setLengthInput}
-            setWidthInput={setWidthInput}
-            setThicknessInput={setThicknessInput}
-          />
-
-          <HorizontalRule />
-          <Text style={{ color: "white", fontSize: 25 }}>Results</Text>
-          <HorizontalRule />
-          <OutputDisplayArea
-            label={"Area Total :"}
-            sum={outputResult}
-          ></OutputDisplayArea>
-          <StatusBar style="auto" />
-        </View>
-      </ScrollView>
-    </SQLiteProvider>
+        <HorizontalRule />
+        <Text style={{ color: "white", fontSize: 25 }}>Results</Text>
+        <HorizontalRule />
+        <OutputDisplayArea
+          label={"Area Total :"}
+          sum={outputResult}
+        ></OutputDisplayArea>
+        <StatusBar style="auto" />
+      </View>
+    </ScrollView>
   );
 }
 
