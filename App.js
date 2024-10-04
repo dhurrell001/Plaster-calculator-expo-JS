@@ -43,7 +43,7 @@ export default function App() {
         <Text style={styles.title}>Plaster Calculator</Text>
         <HorizontalRule />
         {/* <HeadImage /> */}
-        {/* <DisplayContainer data={data} /> Pass data to DisplayContainer */}
+        <DisplayContainer data={data} />
         <InputDisplayArea
           lengthInput={lengthInput}
           widthInput={widthInput}

@@ -54,5 +54,23 @@ export const getPlasters = async (callback) => {
     console.error("Error fetching data from database: ", error);
   }
 };
+/**
+ * Deletes a specific plaster record by its unique ID.
+ * This function is asynchronous and executes a SQL query to delete a plaster based on its ID.
+ *
+ * @param {number} id - The unique identifier of the plaster record to delete.
+ */
+export const deletePlasterById = async (id) => {
+  try {
+    // Await the resolution of dbPromise to get a reference to the database
+    const db = await dbPromise;
 
+    // Execute a SQL command to delete a plaster record by its ID
+    await db.execAsync("DELETE FROM plasters WHERE id = ?;", [id]); // Use parameterized query for security
+    console.log(`Plaster with ID ${id} deleted.`); // Log the successful deletion
+  } catch (error) {
+    // Log any errors encountered while deleting the plaster by ID
+    console.error("Error deleting plaster by ID: ", error);
+  }
+};
 // Other functions remain unchanged...
