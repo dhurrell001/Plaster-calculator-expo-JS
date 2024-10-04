@@ -25,7 +25,7 @@ export default function App() {
   useEffect(() => {
     const initializeDatabase = async () => {
       await setupDatabase();
-      getPlasters((result) => {
+      await getPlasters((result) => {
         console.log(result); // Add this line to log the data
         setData(result); // Fetch and set data
       });
