@@ -1,30 +1,49 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { useState } from "react";
+import DisplayContainer from "./components/displayDatabase";
 
 // Custom components
-import HeadImage from "./components/headerImage";
-import LabeledTextInput from "./components/textInput";
-import TextOutput from "./components/textOutput";
-import SubmitButton from "./components/submitButton";
+
 import HorizontalRule from "./components/horizontalRule";
 import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
-
-import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
+import { setupDatabase, getPlasters } from "./components/database";
+import React, { useEffect, useState } from "react";
 
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
   const [widthInput, setWidthInput] = useState("");
-  const [outputResult, setOutputResult] = useState("null");
+  const [outputResult, setOutputResult] = useState(0);
   const [thicknessInput, setThicknessInput] = useState("");
+  // Set up the database and fetch data on app load
+  useEffect(() => {
+    console.log("Setting up database...");
+    setupDatabase();
+  }, []);
 
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const initializeDatabase = async () => {
+      await setupDatabase();
+      getPlasters((result) => {
+        console.log(result); // Add this line to log the data
+        setData(result); // Fetch and set data
+      });
+    };
+
+    initializeDatabase();
+  }, []);
+  // Debugging log to check the data
+  useEffect(() => {
+    console.log("Database Data: ", data); // Log to check if data is fetched correctly
+  }, [data]);
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.title}>Plaster Calculator</Text>
         <HorizontalRule />
         {/* <HeadImage /> */}
+        {/* <DisplayContainer data={data} /> Pass data to DisplayContainer */}
         <InputDisplayArea
           lengthInput={lengthInput}
           widthInput={widthInput}
@@ -33,7 +52,6 @@ export default function App() {
           setWidthInput={setWidthInput}
           setThicknessInput={setThicknessInput}
         />
-
         <HorizontalRule />
         <Text style={{ color: "white", fontSize: 25 }}>Results</Text>
         <HorizontalRule />
