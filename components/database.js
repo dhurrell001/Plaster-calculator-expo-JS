@@ -27,13 +27,15 @@ export const setupDatabase = async () => {
     const result = await db.getFirstAsync(
       "SELECT COUNT(*) AS count FROM plasters;"
     );
+    console.log(`db length ${result.length}`);
     if (result.count === 0) {
       console.log("No records found, inserting initial plaster data...");
       await db.execAsync(
         `INSERT INTO plasters (plasterName, coveragePerMMperSQM, bagSize, plasterType)
         VALUES 
         ('Multi-Finish', 2, 25, 'INTERNAL'),
-        ('Hardwall', 3, 25, 'INTERNAL');`
+        ('Hardwall', 3, 25, 'INTERNAL'),
+        ('Bonding', 3, 25, 'INTERNAL')`
       );
       console.log("Initial plaster data inserted.");
     } else {
@@ -73,4 +75,30 @@ export const deletePlasterById = async (id) => {
     console.error("Error deleting plaster by ID: ", error);
   }
 };
-// Other functions remain unchanged...
+/**
+ * Deletes all plaster records from the database.
+ * This function is asynchronous and executes a SQL query to delete all records in the plasters table.
+ */
+export const deleteAllPlasters = async () => {
+  try {
+    // Await the resolution of dbPromise to get a reference to the database
+    const db = await dbPromise;
+
+    // Execute a SQL command to delete all records from the plasters table
+    await db.execAsync("DELETE FROM plasters;"); // Directly delete all records
+    console.log("All plaster records deleted."); // Log the successful deletion
+  } catch (error) {
+    // Log any errors encountered while deleting all plaster records
+    console.error("Error deleting all plaster records: ", error);
+  }
+};
+// Function to clear all plaster records from the database
+export const clearDatabase = async () => {
+  try {
+    const db = await dbPromise;
+    await db.execAsync("DELETE FROM plasters;");
+    console.log("All records cleared from the 'plasters' table.");
+  } catch (error) {
+    console.error("Error clearing database: ", error);
+  }
+};

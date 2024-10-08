@@ -7,7 +7,11 @@ import DisplayContainer from "./components/displayDatabase";
 import HorizontalRule from "./components/horizontalRule";
 import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
-import { setupDatabase, getPlasters } from "./components/database";
+import {
+  setupDatabase,
+  getPlasters,
+  clearDatabase,
+} from "./components/database";
 import React, { useEffect, useState } from "react";
 
 export default function App() {
@@ -16,14 +20,15 @@ export default function App() {
   const [outputResult, setOutputResult] = useState(0);
   const [thicknessInput, setThicknessInput] = useState("");
   // Set up the database and fetch data on app load
-  useEffect(() => {
-    console.log("Setting up database...");
-    setupDatabase();
-  }, []);
+  // useEffect(() => {
+  //   console.log("Setting up database...");
+  //   setupDatabase();
+  // }, []);
 
   const [data, setData] = useState([]);
   useEffect(() => {
     const initializeDatabase = async () => {
+      await clearDatabase();
       await setupDatabase();
       await getPlasters((result) => {
         console.log(result); // Add this line to log the data
