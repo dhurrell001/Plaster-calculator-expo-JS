@@ -11,6 +11,8 @@ import {
   setupDatabase,
   getPlasters,
   clearDatabase,
+  getPlasterById,
+  getPlasterByName,
 } from "./components/database";
 import React, { useEffect, useState } from "react";
 
@@ -26,22 +28,53 @@ export default function App() {
   // }, []);
 
   const [data, setData] = useState([]);
+  let currentPlaster = null;
+  // Initialize the database and fetch data from it
   useEffect(() => {
     const initializeDatabase = async () => {
-      await clearDatabase();
-      await setupDatabase();
-      await getPlasters((result) => {
-        console.log(result); // Add this line to log the data
-        setData(result); // Fetch and set data
-      });
+      try {
+        await clearDatabase(); // Clear the database first
+        await setupDatabase(); // Setup and insert initial data into the database
+        await getPlasters((result) => {
+          console.log("Plaster data: ", result);
+          setData(result); // Set the data in state
+        });
+
+        // Fetch plaster by name after data is initialized
+        const plaster = await getPlasterByName("Hardwall"); // Fetch specific plaster by name
+        if (plaster) {
+          currentPlaster = plaster;
+          console.log("Fetched plaster: ", currentPlaster.plasterType);
+        } else {
+          console.log("No plaster found with the name 'Hardwall'.");
+        }
+      } catch (error) {
+        console.error(
+          "Error initializing the database and fetching plaster: ",
+          error
+        );
+      }
     };
 
     initializeDatabase();
-  }, []);
+  }, []); // This useEffect runs once on mount
   // Debugging log to check the data
   useEffect(() => {
     console.log("Database Data: ", data); // Log to check if data is fetched correctly
   }, [data]);
+  // // Fetch plaster by ID
+  // useEffect(() => {
+  //   const fetchPlasterByName = async () => {
+  //     const plaster = await getPlasterByName("Hardwall"); // Replace 28 with the ID you want to fetch
+  //     if (plaster) {
+  //       setCurrentPlaster(plaster);
+  //       console.log("Fetched plaster:", plaster);
+  //     }
+  //   };
+
+  //   fetchPlasterByName();
+  // }, []); // This effect will run once, after the initial render
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
