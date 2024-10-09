@@ -10,9 +10,9 @@ function HorizontalRule() {
 const styles = StyleSheet.create({
   line: {
     borderBottomColor: "whitew", // line color
-    borderBottomWidth: 1, // line thickness
+    borderBottomWidth: 0.5, // line thickness
     marginVertical: 10, // spacing around the line
-    width: "60%", // full width
+    width: "65%", // full width
   },
 });
 

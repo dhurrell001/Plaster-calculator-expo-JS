@@ -7,6 +7,8 @@ import DisplayContainer from "./components/displayDatabase";
 import HorizontalRule from "./components/horizontalRule";
 import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
+import PlasterDropdown from "./components/dropdownPicker.jsx";
+
 import {
   setupDatabase,
   getPlasters,
@@ -21,11 +23,6 @@ export default function App() {
   const [widthInput, setWidthInput] = useState("");
   const [outputResult, setOutputResult] = useState(0);
   const [thicknessInput, setThicknessInput] = useState("");
-  // Set up the database and fetch data on app load
-  // useEffect(() => {
-  //   console.log("Setting up database...");
-  //   setupDatabase();
-  // }, []);
 
   const [data, setData] = useState([]);
   let currentPlaster = null;
@@ -58,30 +55,18 @@ export default function App() {
 
     initializeDatabase();
   }, []); // This useEffect runs once on mount
-  // Debugging log to check the data
+  // Debugging log to check the data contentsa
   useEffect(() => {
     console.log("Database Data: ", data); // Log to check if data is fetched correctly
   }, [data]);
-  // // Fetch plaster by ID
-  // useEffect(() => {
-  //   const fetchPlasterByName = async () => {
-  //     const plaster = await getPlasterByName("Hardwall"); // Replace 28 with the ID you want to fetch
-  //     if (plaster) {
-  //       setCurrentPlaster(plaster);
-  //       console.log("Fetched plaster:", plaster);
-  //     }
-  //   };
-
-  //   fetchPlasterByName();
-  // }, []); // This effect will run once, after the initial render
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.title}>Plaster Calculator</Text>
         <HorizontalRule />
-        {/* <HeadImage /> */}
-        <DisplayContainer data={data} />
+        <PlasterDropdown />
+        {/* <DisplayContainer data={data} /> */}
         <InputDisplayArea
           lengthInput={lengthInput}
           widthInput={widthInput}
@@ -107,7 +92,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "steelblue",
+    backgroundColor: "white",
     alignItems: "center",
     marginTop: 30,
     width: "100%",
@@ -116,14 +101,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     paddingTop: 10,
     marginBottom: 10,
-    color: "white",
+    color: "silver",
   },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 30,
-    backgroundColor: "steelblue",
+    backgroundColor: "white",
     width: "100%",
   },
 });

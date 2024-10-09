@@ -78,9 +78,22 @@ const styles = StyleSheet.create({
     flexDirection: "column", // Stack child elements (input fields) vertically
     alignItems: "center", // Center all child elements horizontally
     marginVertical: 20, // Add vertical spacing to the container
-    backgroundColor: "silver",
+    backgroundColor: "white",
     borderRadius: 10,
+
     width: "70%",
+    // Border styles
+    // borderWidth: 0.5, // Border width
+    borderColor: "#000", // Border color (black in this case)
+
+    // Shadow styles for both iOS and Android
+    shadowColor: "#000", // Shadow color (black)
+    shadowOffset: { width: 0, height: 1 }, // Shadow offset (horizontal, vertical)
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.5, // Shadow radius (blur effect)
+
+    // For Android elevation (required for Expo as well)
+    elevation: 5, // Elevation for Android shadow
   },
 
   // Optional style for a title if added later

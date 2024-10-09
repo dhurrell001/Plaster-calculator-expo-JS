@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "silver",
+    backgroundColor: "white",
     borderRadius: 10,
     // height: 200,
     width: "100%",
@@ -78,9 +78,17 @@ const styles = StyleSheet.create({
   },
   outerContainer: {
     flexDirection: "column",
-    backgroundColor: "silver",
+    backgroundColor: "white",
     width: "70%",
     borderRadius: 10,
+    // Shadow styles for both iOS and Android
+    shadowColor: "#000", // Shadow color (black)
+    shadowOffset: { width: 0, height: 1 }, // Shadow offset (horizontal, vertical)
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.5, // Shadow radius (blur effect)
+
+    // For Android elevation (required for Expo as well)
+    elevation: 5, // Elevation for Android shadow
   },
 });
 
