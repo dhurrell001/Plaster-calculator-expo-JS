@@ -13,7 +13,7 @@ import LabeledTextInput from "./textInput"; // Custom text input with a label
 import SubmitButton from "./submitButton"; // Custom button component
 
 // Functional component for displaying a group of input fields
-function OutputDisplayArea({ label, sum }) {
+function OutputDisplayArea({ label, sum, plasterNeeded, bagsNeeded }) {
   return (
     <View style={styles.outerContainer}>
       <View style={styles.container}>
@@ -25,7 +25,7 @@ function OutputDisplayArea({ label, sum }) {
       <View style={styles.container}>
         <Text style={styles.label}>Plaster required : </Text>
         <View style={styles.outputBox}>
-          <Text style={styles.outputText}>{sum}</Text>
+          <Text style={styles.outputText}>{plasterNeeded}</Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -37,7 +37,7 @@ function OutputDisplayArea({ label, sum }) {
       <View style={styles.container}>
         <Text style={styles.label}>Total Plaster required : </Text>
         <View style={styles.outputBox}>
-          <Text style={styles.outputText}>{sum}</Text>
+          <Text style={styles.outputText}>{bagsNeeded}</Text>
         </View>
       </View>
     </View>
