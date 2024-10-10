@@ -49,6 +49,7 @@ export const setupDatabase = async () => {
 // Function to fetch plaster records from the database
 export const getPlasters = async (callback) => {
   try {
+    console.log("Fetching plasters...");
     const db = await dbPromise;
     const result = await db.getAllAsync("SELECT * FROM plasters;");
     callback(result);

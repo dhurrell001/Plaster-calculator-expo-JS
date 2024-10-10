@@ -3,19 +3,21 @@ import { View, Text, StyleSheet } from "react-native";
 import RNPickerSelect from "react-native-picker-select"; // Dropdown picker library
 import { getPlasters } from "./database"; // Import the function that fetches plasters
 
-function PlasterDropdown() {
+function PlasterDropdown({ selectedPlaster, setSelectedPlaster }) {
   const [plasters, setPlasters] = useState([]); // Store plaster names
-  const [selectedPlaster, setSelectedPlaster] = useState(null); // Store selected plaster
 
-  // Fetch plaster names on component mount
+  // Fetch all plaster names on app start. Use map to retrieve
+  // each plaster name
   useEffect(() => {
     const fetchPlasters = async () => {
+      console.log("Fetching plasters inside dropdown...");
       await getPlasters((data) => {
         const pickerData = data.map((item) => ({
           label: item.plasterName, // Dropdown label
           value: item.plasterName, // Dropdown value
         }));
         setPlasters(pickerData); // Set fetched data to dropdown
+        // display plaster data for testing
         pickerData.forEach((x) => {
           console.log(`inside dropdown fetch ${JSON.stringify(x)}`);
         });
@@ -33,17 +35,19 @@ function PlasterDropdown() {
         // placeholder={{ label: "Select a plaster...", value: null }} // Placeholder
         value={selectedPlaster} // Set value
       />
-      {selectedPlaster && <Text>Selected Plaster: {selectedPlaster}</Text>}
+      {/* {selectedPlaster && <Text>Selected Plaster: {selectedPlaster}</Text>} */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "column", // Stack child elements (input fields) vertically
+    alignItems: "center", // Center all child elements horizontally
     margin: 20,
     padding: 10,
-    borderColor: "#000",
-    borderWidth: 0.5,
+    // borderColor: "#000",
+    // borderWidth: 0.5,
     borderRadius: 5,
     backgroundColor: "white",
     width: "70%",
