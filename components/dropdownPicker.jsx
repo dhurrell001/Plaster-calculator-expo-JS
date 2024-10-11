@@ -5,6 +5,7 @@ import { getPlasters } from "./database"; // Import the function that fetches pl
 
 function PlasterDropdown({ selectedPlaster, setSelectedPlaster }) {
   const [plasters, setPlasters] = useState([]); // Store plaster names
+  const [loading, setLoading] = useState(true); // Track loading state
 
   // Fetch all plaster names on app start. Use map to retrieve
   // each plaster name
@@ -14,28 +15,42 @@ function PlasterDropdown({ selectedPlaster, setSelectedPlaster }) {
       await getPlasters((data) => {
         const pickerData = data.map((item) => ({
           label: item.plasterName, // Dropdown label
-          value: item.plasterName, // Dropdown value
+          value: item, // Dropdown value
         }));
+        console.log("Picker Data: ", pickerData); // Log fetched data
         setPlasters(pickerData); // Set fetched data to dropdown
+        setLoading(false);
         // display plaster data for testing
         pickerData.forEach((x) => {
-          console.log(`inside dropdown fetch ${JSON.stringify(x)}`);
+          console.log(`inside dropdown fetch  ${JSON.stringify(x)}`);
         });
       });
     };
     fetchPlasters(); // Fetch data when component mounts
   }, []);
-
+  // Log selectedPlaster every time it changes
+  useEffect(() => {
+    if (selectedPlaster) {
+      console.log(`Selected Plaster: ${JSON.stringify(selectedPlaster)}`);
+    }
+  }, [selectedPlaster]);
+  if (loading) {
+    return <Text>Loading plasters...</Text>; // Display loading message until data is fetched
+  }
   return (
     <View style={styles.container}>
       <Text>Select Plaster Type:</Text>
-      <RNPickerSelect
-        onValueChange={(value) => setSelectedPlaster(value)} // Set selected value
-        items={plasters} // Dropdown items
-        // placeholder={{ label: "Select a plaster...", value: null }} // Placeholder
-        value={selectedPlaster} // Set value
-      />
-      {/* {selectedPlaster && <Text>Selected Plaster: {selectedPlaster}</Text>} */}
+      {plasters.length > 0 ? (
+        <RNPickerSelect
+          onValueChange={(value) => {
+            setSelectedPlaster(value); // Set the full plaster object as selected
+          }}
+          items={plasters} // Dropdown items
+          value={selectedPlaster} // Set value to selected plaster
+        />
+      ) : (
+        <Text>Loading plasters...</Text>
+      )}
     </View>
   );
 }
