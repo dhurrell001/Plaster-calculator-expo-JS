@@ -49,6 +49,7 @@ export const setupDatabase = async () => {
 // Function to fetch plaster records from the database
 export const getPlasters = async (callback) => {
   try {
+    console.log("Fetching plasters...");
     const db = await dbPromise;
     const result = await db.getAllAsync("SELECT * FROM plasters;");
     callback(result);
@@ -75,6 +76,24 @@ export const deletePlasterById = async (id) => {
     console.error("Error deleting plaster by ID: ", error);
   }
 };
+export const getPlasterByName = async (name) => {
+  try {
+    // Await the resolution of dbPromise to get a reference to the database
+    const db = await dbPromise;
+
+    // Execute a SQL command to delete a plaster record by its ID
+    const result = await db.getFirstAsync(
+      "SELECT * FROM plasters WHERE plasterName = ?;",
+      [name]
+    ); // Use parameterized query for security
+    console.log(`Plaster with name ${name} recovered.`); // Log the successful deletion
+    console.log(`get plaster by name result :${result}`);
+    return result;
+  } catch (error) {
+    // Log any errors encountered while deleting the plaster by ID
+    console.error("Error recovering plaster by ID: ", error);
+  }
+};
 /**
  * Deletes all plaster records from the database.
  * This function is asynchronous and executes a SQL query to delete all records in the plasters table.
@@ -92,6 +111,7 @@ export const deleteAllPlasters = async () => {
     console.error("Error deleting all plaster records: ", error);
   }
 };
+
 // Function to clear all plaster records from the database
 export const clearDatabase = async () => {
   try {

@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
   // Style for the label text
   label: {
-    fontSize: 16, // Font size for label text
+    fontSize: 18, // Font size for label text
     marginBottom: 5, // Spacing between the label and the input
     color: "#333", // Text color for the label (dark grey)
   },

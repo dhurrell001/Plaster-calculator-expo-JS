@@ -13,7 +13,7 @@ import LabeledTextInput from "./textInput"; // Custom text input with a label
 import SubmitButton from "./submitButton"; // Custom button component
 
 // Functional component for displaying a group of input fields
-function OutputDisplayArea({ label, sum }) {
+function OutputDisplayArea({ label, sum, plasterNeeded, bagsNeeded }) {
   return (
     <View style={styles.outerContainer}>
       <View style={styles.container}>
@@ -23,21 +23,27 @@ function OutputDisplayArea({ label, sum }) {
         </View>
       </View>
       <View style={styles.container}>
-        <Text style={styles.label}>Plaster required : </Text>
+        <Text style={styles.label}>Plaster required KG : </Text>
+        <View style={styles.outputBox}>
+          <Text style={styles.outputText}>{plasterNeeded}</Text>
+        </View>
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.label}>Contingency required KG : </Text>
         <View style={styles.outputBox}>
           <Text style={styles.outputText}>{sum}</Text>
         </View>
       </View>
       <View style={styles.container}>
-        <Text style={styles.label}>Contingency required : </Text>
+        <Text style={styles.label}>Total Plaster required KG: </Text>
         <View style={styles.outputBox}>
-          <Text style={styles.outputText}>{sum}</Text>
+          <Text style={styles.outputText}>{bagsNeeded}</Text>
         </View>
       </View>
       <View style={styles.container}>
-        <Text style={styles.label}>Total Plaster required : </Text>
+        <Text style={styles.label}>Total bags required : </Text>
         <View style={styles.outputBox}>
-          <Text style={styles.outputText}>{sum}</Text>
+          <Text style={styles.outputText}>{bagsNeeded}</Text>
         </View>
       </View>
     </View>
@@ -50,21 +56,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 10,
     paddingHorizontal: 10,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "silver",
+    backgroundColor: "white",
     borderRadius: 10,
     // height: 200,
     width: "100%",
+    paddingRight: 20,
+    paddingLeft: 20,
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
     color: "#333",
   },
   outputBox: {
     height: 40,
-    width: "20%",
+    width: "15%",
     borderColor: "#ccc",
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -78,9 +86,18 @@ const styles = StyleSheet.create({
   },
   outerContainer: {
     flexDirection: "column",
-    backgroundColor: "silver",
-    width: "70%",
+    backgroundColor: "white",
+    width: "90%",
+
     borderRadius: 10,
+    // Shadow styles for both iOS and Android
+    shadowColor: "#000", // Shadow color (black)
+    shadowOffset: { width: 0, height: 1 }, // Shadow offset (horizontal, vertical)
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.5, // Shadow radius (blur effect)
+
+    // For Android elevation (required for Expo as well)
+    elevation: 5, // Elevation for Android shadow
   },
 });
 
