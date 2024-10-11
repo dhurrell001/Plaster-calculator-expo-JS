@@ -23,19 +23,25 @@ function OutputDisplayArea({ label, sum, plasterNeeded, bagsNeeded }) {
         </View>
       </View>
       <View style={styles.container}>
-        <Text style={styles.label}>Plaster required : </Text>
+        <Text style={styles.label}>Plaster required KG : </Text>
         <View style={styles.outputBox}>
           <Text style={styles.outputText}>{plasterNeeded}</Text>
         </View>
       </View>
       <View style={styles.container}>
-        <Text style={styles.label}>Contingency required : </Text>
+        <Text style={styles.label}>Contingency required KG : </Text>
         <View style={styles.outputBox}>
           <Text style={styles.outputText}>{sum}</Text>
         </View>
       </View>
       <View style={styles.container}>
-        <Text style={styles.label}>Total Plaster required : </Text>
+        <Text style={styles.label}>Total Plaster required KG: </Text>
+        <View style={styles.outputBox}>
+          <Text style={styles.outputText}>{bagsNeeded}</Text>
+        </View>
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.label}>Total bags required : </Text>
         <View style={styles.outputBox}>
           <Text style={styles.outputText}>{bagsNeeded}</Text>
         </View>
@@ -50,21 +56,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 10,
     paddingHorizontal: 10,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 10,
     // height: 200,
     width: "100%",
+    paddingRight: 20,
+    paddingLeft: 20,
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
     color: "#333",
   },
   outputBox: {
     height: 40,
-    width: "20%",
+    width: "15%",
     borderColor: "#ccc",
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -79,7 +87,8 @@ const styles = StyleSheet.create({
   outerContainer: {
     flexDirection: "column",
     backgroundColor: "white",
-    width: "70%",
+    width: "90%",
+
     borderRadius: 10,
     // Shadow styles for both iOS and Android
     shadowColor: "#000", // Shadow color (black)
