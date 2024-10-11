@@ -20,13 +20,20 @@ const CalculateSum = (
   thicknessInput,
   selectedPlaster,
   setPlasterNeeded,
-  setBagsNeeded
+  setBagsNeeded,
+  contingencyInput,
+  setContingencyInput
 ) => {
   const length = parseFloat(lengthInput); // Convert length input to float
   const width = parseFloat(widthInput); // Convert width input to float
   if (!isNaN(length) && !isNaN(width)) {
     const totalArea = calculateArea(length, width);
     console.log("inside calculate area func");
+    console.log(
+      `plaster selected inside calc func ${selectedPlaster.plasterName}`
+    );
+    console.log(`Selected plaster object: ${JSON.stringify(selectedPlaster)}`);
+
     // calculate plaster needed in kg
     const plasterNeeded = calculatePlasterNeeded(
       totalArea,
