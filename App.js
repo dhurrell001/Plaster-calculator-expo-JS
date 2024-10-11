@@ -26,6 +26,7 @@ export default function App() {
   const [selectedPlaster, setSelectedPlaster] = useState(null); // Store selected plaster
   const [plasterNeeded, setPlasterNeeded] = useState(0); // State for plaster needed
   const [bagsNeeded, setBagsNeeded] = useState(0); // State for bags needed
+  const [contingencyInput, setContingencyInput] = useState(0);
 
   const [data, setData] = useState([]);
   let currentPlaster = null;
@@ -41,13 +42,13 @@ export default function App() {
         });
 
         // Fetch plaster by name after data is initialized
-        const plaster = await getPlasterByName("Hardwall"); // Fetch specific plaster by name
-        if (plaster) {
-          setSelectedPlaster(plaster);
-          // console.log("Fetched plaster: ", selectedPlaster.plasterType);
-        } else {
-          console.log("No plaster found with the name 'Hardwall'.");
-        }
+        // const plaster = await getPlasterByName("Hardwall"); // Fetch specific plaster by name
+        // if (plaster) {
+        //   setSelectedPlaster(plaster);
+        //   // console.log("Fetched plaster: ", selectedPlaster.plasterType);
+        // } else {
+        //   console.log("No plaster found with the name 'Hardwall'.");
+        // }
       } catch (error) {
         console.error(
           "Error initializing the database and fetching plaster: ",
@@ -65,13 +66,18 @@ export default function App() {
   // helper function that call the main calculation function. This is passed to the
   // output display for use as a onClick function
   const handleCalculation = () => {
+    console.log(
+      `selected plaster inside handle calc func ${selectedPlaster.plasterName},${selectedPlaster.coveragePerMMperSQM}`
+    );
     CalculateSum(
       lengthInput,
       widthInput,
       thicknessInput,
       selectedPlaster,
       setPlasterNeeded,
-      setBagsNeeded
+      setBagsNeeded,
+      contingencyInput,
+      setContingencyInput
     );
   };
   return (
@@ -91,6 +97,8 @@ export default function App() {
           setLengthInput={setLengthInput}
           setWidthInput={setWidthInput}
           setThicknessInput={setThicknessInput}
+          contingencyInput={contingencyInput}
+          setContingencyInput={setContingencyInput}
           calculateSum={handleCalculation} //passsing the function to display onClick
         />
         <HorizontalRule />
