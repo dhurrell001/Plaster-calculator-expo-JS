@@ -42,11 +42,11 @@ const CalculateSum = (
     );
     setPlasterNeeded(plasterNeeded);
     console.log(`plaster needed ${plasterNeeded}`);
-    // const bagsNeeded = calculateBagsNeeded(
-    //   plasterNeeded,
-    //   selectedPlaster.bagSize
-    // );
-    // setBagsNeeded(bagsNeeded);
+    const bagsNeeded = calculateBagsNeeded(
+      plasterNeeded,
+      selectedPlaster.bagSize
+    );
+    setBagsNeeded(bagsNeeded);
   } else {
     console.log("Please enter valid numbers");
   } // Error message for invalid inputs

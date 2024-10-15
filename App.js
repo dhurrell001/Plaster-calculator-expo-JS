@@ -27,28 +27,19 @@ export default function App() {
   const [plasterNeeded, setPlasterNeeded] = useState(0); // State for plaster needed
   const [bagsNeeded, setBagsNeeded] = useState(0); // State for bags needed
   const [contingencyInput, setContingencyInput] = useState(0);
-
+  const [plasterData, setPlasterData] = useState([]); // Store plaster data
   const [data, setData] = useState([]);
   let currentPlaster = null;
-  // Initialize the database and fetch data from it
+  // set up dtatbase and fetch plasters
   useEffect(() => {
     const initializeDatabase = async () => {
       try {
-        await clearDatabase(); // Clear the database first
+        await clearDatabase(); // Clear the database first (optional)
         await setupDatabase(); // Setup and insert initial data into the database
         await getPlasters((result) => {
           console.log("Plaster data: ", result);
-          setData(result); // Set the data in state
+          setPlasterData(result); // Set the plaster data in state
         });
-
-        // Fetch plaster by name after data is initialized
-        // const plaster = await getPlasterByName("Hardwall"); // Fetch specific plaster by name
-        // if (plaster) {
-        //   setSelectedPlaster(plaster);
-        //   // console.log("Fetched plaster: ", selectedPlaster.plasterType);
-        // } else {
-        //   console.log("No plaster found with the name 'Hardwall'.");
-        // }
       } catch (error) {
         console.error(
           "Error initializing the database and fetching plaster: ",
@@ -57,8 +48,9 @@ export default function App() {
       }
     };
 
-    initializeDatabase();
+    initializeDatabase(); // Call the async function
   }, []); // This useEffect runs once on mount
+
   // Debugging log to check the data contentsa
   useEffect(() => {
     console.log("Database Data: ", data); // Log to check if data is fetched correctly
@@ -88,6 +80,7 @@ export default function App() {
         <PlasterDropdown
           selectedPlaster={selectedPlaster}
           setSelectedPlaster={setSelectedPlaster}
+          plasters={plasterData} // Pass plaster data as a prop
         />
         {/* <DisplayContainer data={data} /> */}
         <InputDisplayArea

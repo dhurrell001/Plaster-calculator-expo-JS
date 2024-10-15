@@ -3,53 +3,47 @@ import { View, Text, StyleSheet } from "react-native";
 import RNPickerSelect from "react-native-picker-select"; // Dropdown picker library
 import { getPlasters } from "./database"; // Import the function that fetches plasters
 
-function PlasterDropdown({ selectedPlaster, setSelectedPlaster }) {
-  const [plasters, setPlasters] = useState([]); // Store plaster names
-  const [loading, setLoading] = useState(true); // Track loading state
-
-  // Fetch all plaster names on app start. Use map to retrieve
-  // each plaster name
+function PlasterDropdown({ selectedPlaster, setSelectedPlaster, plasters }) {
+  const [loading, setLoading] = useState(true);
+  // hook to check if plasters exist and is populated, sets the loadinf state to false
   useEffect(() => {
-    const fetchPlasters = async () => {
-      console.log("Fetching plasters inside dropdown...");
-      await getPlasters((data) => {
-        const pickerData = data.map((item) => ({
-          label: item.plasterName, // Dropdown label
-          value: item, // Dropdown value
-        }));
-        console.log("Picker Data: ", pickerData); // Log fetched data
-        setPlasters(pickerData); // Set fetched data to dropdown
-        setLoading(false);
-        // display plaster data for testing
-        pickerData.forEach((x) => {
-          console.log(`inside dropdown fetch  ${JSON.stringify(x)}`);
-        });
-      });
-    };
-    fetchPlasters(); // Fetch data when component mounts
-  }, []);
-  // Log selectedPlaster every time it changes
-  useEffect(() => {
-    if (selectedPlaster) {
-      console.log(`Selected Plaster: ${JSON.stringify(selectedPlaster)}`);
+    if (plasters && plasters.length > 0) {
+      setLoading(false);
     }
-  }, [selectedPlaster]);
+  }, [plasters]);
+
+  //  search for select plaster by name. This avoids erractic dropdown menu caused by
+  // dropdown menu value as an object
+  const handlePlasterChange = (plasterName) => {
+    const selected = plasters.find(
+      (plaster) => plaster.plasterName === plasterName
+    );
+    setSelectedPlaster(selected); // Set the full plaster object
+  };
+
   if (loading) {
-    return <Text>Loading plasters...</Text>; // Display loading message until data is fetched
+    return <Text>Loading plasters...</Text>;
   }
+
   return (
     <View style={styles.container}>
       <Text>Select Plaster Type:</Text>
+
       {plasters.length > 0 ? (
         <RNPickerSelect
-          onValueChange={(value) => {
-            setSelectedPlaster(value); // Set the full plaster object as selected
+          onValueChange={handlePlasterChange} //passes the value(plasterName) to search function
+          items={plasters.map((item) => ({
+            label: item.plasterName,
+            value: item.plasterName, // Store plasterName as the value
+          }))}
+          value={selectedPlaster ? selectedPlaster.plasterName : null} // Set plasterName as the value
+          placeholder={{
+            label: "Select a plaster...",
+            value: null,
           }}
-          items={plasters} // Dropdown items
-          value={selectedPlaster} // Set value to selected plaster
         />
       ) : (
-        <Text>Loading plasters...</Text>
+        <Text>No plasters available.</Text>
       )}
     </View>
   );
