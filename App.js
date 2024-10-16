@@ -32,6 +32,7 @@ export default function App() {
   const [contingencyNeeded, setContingencyNeeded] = useState(0);
   const [totalPlasterNeeded, setTotalPlasterNeeded] = useState(0);
   const [totalArea, setTotalArea] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   let currentPlaster = null;
   // set up dtatbase and fetch plasters
   useEffect(() => {
@@ -61,9 +62,32 @@ export default function App() {
   // helper function that call the main calculation function. This is passed to the
   // output display for use as a onClick function
   const handleCalculation = () => {
-    console.log(
-      `selected plaster inside handle calc func ${selectedPlaster.plasterName},${selectedPlaster.coveragePerMMperSQM}`
-    );
+    const length = parseFloat(lengthInput);
+    const width = parseFloat(widthInput);
+    const thickness = parseFloat(thicknessInput);
+    const contingency = parseFloat(contingencyInput);
+
+    // Validation checks
+    if (isNaN(length) || length <= 0) {
+      setErrorMessage("Please enter a valid length greater than 0.");
+      return;
+    }
+    if (isNaN(width) || width <= 0) {
+      setErrorMessage("Please enter a valid width greater than 0.");
+      return;
+    }
+    if (isNaN(thickness) || thickness <= 0) {
+      setErrorMessage("Please enter a valid thickness greater than 0.");
+      return;
+    }
+    if (isNaN(contingency) || contingency < 0) {
+      setErrorMessage(
+        "Please enter a valid contingency percentage (0 or greater)."
+      );
+      return;
+    }
+
+    setErrorMessage(""); // Clear error message
     CalculateSum(
       lengthInput,
       widthInput,
@@ -89,6 +113,9 @@ export default function App() {
           plasters={plasterData} // Pass plaster data as a prop
         />
         {/* <DisplayContainer data={data} /> */}
+        {errorMessage ? (
+          <Text style={{ color: "red" }}>{errorMessage}</Text>
+        ) : null}
         <InputDisplayArea
           lengthInput={lengthInput}
           widthInput={widthInput}
