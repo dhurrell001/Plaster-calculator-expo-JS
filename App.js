@@ -29,6 +29,9 @@ export default function App() {
   const [contingencyInput, setContingencyInput] = useState(0);
   const [plasterData, setPlasterData] = useState([]); // Store plaster data
   const [data, setData] = useState([]);
+  const [contingencyNeeded, setContingencyNeeded] = useState(0);
+  const [totalPlasterNeeded, setTotalPlasterNeeded] = useState(0);
+  const [totalArea, setTotalArea] = useState(0);
   let currentPlaster = null;
   // set up dtatbase and fetch plasters
   useEffect(() => {
@@ -69,7 +72,10 @@ export default function App() {
       setPlasterNeeded,
       setBagsNeeded,
       contingencyInput,
-      setContingencyInput
+      setContingencyInput,
+      setContingencyNeeded,
+      setTotalPlasterNeeded,
+      setTotalArea
     );
   };
   return (
@@ -94,14 +100,16 @@ export default function App() {
           setContingencyInput={setContingencyInput}
           calculateSum={handleCalculation} //passsing the function to display onClick
         />
-        <HorizontalRule />
-        <Text style={{ color: "white", fontSize: 25 }}>Results</Text>
-        <HorizontalRule />
+        {/* <HorizontalRule /> */}
+        <Text style={{ color: "black", fontSize: 25 }}>Results</Text>
+        {/* <HorizontalRule /> */}
         <OutputDisplayArea
           label={"Area Total :"}
-          sum={outputResult}
+          sum={totalArea}
           plasterNeeded={plasterNeeded}
           bagsNeeded={bagsNeeded}
+          contingencyNeeded={contingencyNeeded}
+          totalPlasterNeeded={totalPlasterNeeded}
         ></OutputDisplayArea>
         <StatusBar style="auto" />
       </View>
@@ -122,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     paddingTop: 10,
     marginBottom: 10,
-    color: "silver",
+    color: "black",
   },
   scrollViewContent: {
     flexGrow: 1,
