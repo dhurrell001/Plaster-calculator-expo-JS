@@ -43,31 +43,31 @@ function InputDisplayArea({
     <View style={styles.container}>
       {/* Width input field with a label */}
       <LabeledTextInput
-        label={"Please enter Width :                "} // Label for the width input
-        placeholder={"0"} // Placeholder text for width input
+        label={"Enter Width (Mtrs) :                "} // Label for the width input
+        placeholder={"0   "} // Placeholder text for width input
         value={widthInput} // Value controlled externally
         onChangeText={setWidthInput} // Update width value on input change
       />
 
       {/* Length input field with a label */}
       <LabeledTextInput
-        label={"Please enter Length :               "} // Label for the length input
-        placeholder={"0"} // Placeholder text for length input
+        label={"Enter Length (Mtrs):               "} // Label for the length input
+        placeholder={"0   "} // Placeholder text for length input
         value={lengthInput} // Value controlled externally
         onChangeText={setLengthInput} // Update length value on input change
       />
 
       {/* Thickness input field with a label */}
       <LabeledTextInput
-        label={"Please enter thickness :           "} // Label for the thickness input
-        placeholder={"0"} // Placeholder text for thickness input
+        label={"Enter thickness (MM):           "} // Label for the thickness input
+        placeholder={"0   "} // Placeholder text for thickness input
         value={thicknessInput} // Value controlled externally
         onChangeText={setThicknessInput} // Update thickness value on input change
       />
       {/* contingency input field with a label */}
       <LabeledTextInput
-        label={"Please enter contingency % : "} // Label for the thickness input
-        placeholder={"0"} // Placeholder text for thickness input
+        label={"Enter contingency (%):         "} // Label for the thickness input
+        placeholder={"0   "} // Placeholder text for thickness input
         value={contingencyInput} // Value controlled externally
         onChangeText={setContingencyInput} // Update thickness value on input change
       />
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column", // Stack child elements (input fields) vertically
     alignItems: "center", // Center all child elements horizontally
-    justifyContent: "space-around",
+    // justifyContent: "space-around",
     marginVertical: 20, // Add vertical spacing to the container
     backgroundColor: "white",
     borderRadius: 10,
