@@ -22,12 +22,16 @@ const CalculateSum = (
   setPlasterNeeded,
   setBagsNeeded,
   contingencyInput,
-  setContingencyInput
+  setContingencyInput,
+  setContingencyNeeded,
+  setTotalPlasterNeeded,
+  setTotalArea
 ) => {
   const length = parseFloat(lengthInput); // Convert length input to float
   const width = parseFloat(widthInput); // Convert width input to float
   if (!isNaN(length) && !isNaN(width)) {
     const totalArea = calculateArea(length, width);
+    setTotalArea(totalArea);
     console.log("inside calculate area func");
     console.log(
       `plaster selected inside calc func ${selectedPlaster.plasterName}`
@@ -42,11 +46,22 @@ const CalculateSum = (
     );
     setPlasterNeeded(plasterNeeded);
     console.log(`plaster needed ${plasterNeeded}`);
+    // calculate the amount of bags needed
     const bagsNeeded = calculateBagsNeeded(
       plasterNeeded,
       selectedPlaster.bagSize
     );
     setBagsNeeded(bagsNeeded);
+    // Calculate contingency needed
+    const contingency = parseFloat(contingencyInput);
+    if (!isNaN(contingency)) {
+      const contingencyNeeded = calculateContingencyNeeded(
+        plasterNeeded,
+        contingency
+      );
+      setContingencyNeeded(contingencyNeeded);
+      setTotalPlasterNeeded(contingencyNeeded + plasterNeeded);
+    }
   } else {
     console.log("Please enter valid numbers");
   } // Error message for invalid inputs
