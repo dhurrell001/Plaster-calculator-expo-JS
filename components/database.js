@@ -33,9 +33,14 @@ export const setupDatabase = async () => {
       await db.execAsync(
         `INSERT INTO plasters (plasterName, coveragePerMMperSQM, bagSize, plasterType)
         VALUES 
-        ('Multi-Finish', 2, 25, 'INTERNAL'),
-        ('Hardwall', 3, 25, 'INTERNAL'),
-        ('Bonding', 3, 25, 'INTERNAL')`
+        ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL'),
+        ('British Gypsum Hardwall', 3, 25, 'INTERNAL'),
+        ('British Gypsum Bonding', 3, 25, 'INTERNAL'),
+        ('K-Rend Silicone K1',1.6,25,'EXTERNAL'),
+        ('k-Rend HP12 Base',1.8,25,'EXTERNAL'),
+        ('K-Rend Silicone TC10',1.8,25,'EXTERNAL'),
+        ('K-Rend Silicone TC15',2.5,25,'EXTERNAL'),
+        ('K-Rend Silicone TC30',5,25,'EXTERNAL')`
       );
       console.log("Initial plaster data inserted.");
     } else {
