@@ -9,6 +9,7 @@ import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
 import PlasterDropdown from "./components/dropdownPicker.jsx";
 import CalculateSum from "./components/calculationFunctions.js";
+import PlasterTypeSwitch from "./components/plasterTypeSwitches.jsx";
 import {
   setupDatabase,
   getPlasters,
@@ -18,6 +19,13 @@ import {
 } from "./components/database";
 import React, { useEffect, useState } from "react";
 
+const colorScheme = {
+  palePurple: "E5D4ED",
+  slateBlue: "6D72C3",
+  rebeccaPurple: "5941A9",
+  davyGrey: "514F59",
+  darkPurple: "1D1128",
+};
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
   const [widthInput, setWidthInput] = useState("");
@@ -86,6 +94,10 @@ export default function App() {
       );
       return;
     }
+    if (!selectedPlaster) {
+      setErrorMessage("Please select a plaster");
+      return;
+    }
 
     setErrorMessage(""); // Clear error message
     CalculateSum(
@@ -105,8 +117,9 @@ export default function App() {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
-        <Text style={styles.title}>Plaster Calculator</Text>
+        <Text style={styles.title}>PLASTER CALCULATOR</Text>
         <HorizontalRule />
+        <PlasterTypeSwitch />
         <PlasterDropdown
           selectedPlaster={selectedPlaster}
           setSelectedPlaster={setSelectedPlaster}
@@ -128,7 +141,7 @@ export default function App() {
           calculateSum={handleCalculation} //passsing the function to display onClick
         />
         {/* <HorizontalRule /> */}
-        <Text style={{ color: "black", fontSize: 25 }}>Results</Text>
+        <Text style={{ color: "darkgrey", fontSize: 27 }}>RESULTS</Text>
         {/* <HorizontalRule /> */}
         <OutputDisplayArea
           label={"Area Total :"}
@@ -148,23 +161,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: "linen",
     alignItems: "center",
     marginTop: 30,
     width: "100%",
   },
   title: {
-    fontSize: 30,
+    fontSize: 27,
     paddingTop: 10,
     marginBottom: 10,
-    color: "black",
+    color: "darkgrey",
   },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 30,
-    backgroundColor: "white",
+    backgroundColor: "linen",
     width: "100%",
   },
 });
