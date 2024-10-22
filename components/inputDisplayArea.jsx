@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     marginVertical: 20, // Add vertical spacing to the container
     backgroundColor: "white",
     borderRadius: 10,
+    paddingTop: 15,
 
     width: "90%",
     // Border styles
