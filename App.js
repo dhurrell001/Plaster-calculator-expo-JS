@@ -16,6 +16,7 @@ import {
   clearDatabase,
   getPlasterById,
   getPlasterByName,
+  getToggledPlasters,
 } from "./components/database";
 import React, { useEffect, useState } from "react";
 
@@ -41,6 +42,8 @@ export default function App() {
   const [totalPlasterNeeded, setTotalPlasterNeeded] = useState(0);
   const [totalArea, setTotalArea] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [InternalisEnabled, setInternalIsEnabled] = useState(true);
+  const [ExternalisEnabled, setExternalIsEnabled] = useState(true);
   let currentPlaster = null;
   // set up dtatbase and fetch plasters
   useEffect(() => {
@@ -62,6 +65,30 @@ export default function App() {
 
     initializeDatabase(); // Call the async function
   }, []); // This useEffect runs once on mount
+  useEffect(() => {
+    const fetchPlasterData = async () => {
+      try {
+        console.log("inside fetchPlasterData app.j");
+        // console.log("Internal switch is now: ", InternalisEnabled);
+        // console.log("External switch is now: ", ExternalisEnabled);
+        await getToggledPlasters(
+          InternalisEnabled,
+          ExternalisEnabled,
+          (result) => {
+            if (result && result.length > 0) {
+              setPlasterData(result); // Update the state
+            } else {
+              console.log("No toggled plasters found");
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Error fetching toggled plasters: ", error);
+      }
+    };
+
+    fetchPlasterData();
+  }, [InternalisEnabled, ExternalisEnabled]); // Re-run when switches change
 
   // Debugging log to check the data contentsa
   useEffect(() => {
@@ -119,7 +146,12 @@ export default function App() {
       <View style={styles.container}>
         <Text style={styles.title}>PLASTER CALCULATOR</Text>
         <HorizontalRule />
-        <PlasterTypeSwitch />
+        <PlasterTypeSwitch
+          InternalisEnabled={InternalisEnabled}
+          ExternalisEnabled={ExternalisEnabled}
+          setInternalIsEnabled={setInternalIsEnabled}
+          setExternalIsEnabled={setExternalIsEnabled}
+        />
         <PlasterDropdown
           selectedPlaster={selectedPlaster}
           setSelectedPlaster={setSelectedPlaster}
