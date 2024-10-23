@@ -59,12 +59,13 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     borderRadius: 5,
     backgroundColor: "white",
-    width: "70%",
+    width: "90%",
     // Shadow styles for both iOS and Android
     shadowColor: "#000", // Shadow color (black)
     shadowOffset: { width: 0, height: 1 }, // Shadow offset (horizontal, vertical)
     shadowOpacity: 0.25, // Shadow opacity
     shadowRadius: 3.5, // Shadow radius (blur effect)
+    fontSize: 18,
   },
 });
 

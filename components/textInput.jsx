@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
 
   // Style for the text input field
   input: {
-    height: 30, // Height of the input field
+    height: 40, // Height of the input field
+    width: "24%",
     borderColor: "#ccc", // Border color (light grey)
     borderWidth: 1, // Border width
     paddingHorizontal: 10, // Padding inside the input field

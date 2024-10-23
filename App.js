@@ -9,6 +9,7 @@ import InputDisplayArea from "./components/inputDisplayArea";
 import OutputDisplayArea from "./components/outputDisplayArea";
 import PlasterDropdown from "./components/dropdownPicker.jsx";
 import CalculateSum from "./components/calculationFunctions.js";
+import PlasterTypeSwitch from "./components/plasterTypeSwitches.jsx";
 import {
   setupDatabase,
   getPlasters,
@@ -18,6 +19,13 @@ import {
 } from "./components/database";
 import React, { useEffect, useState } from "react";
 
+const colorScheme = {
+  palePurple: "E5D4ED",
+  slateBlue: "6D72C3",
+  rebeccaPurple: "5941A9",
+  davyGrey: "514F59",
+  darkPurple: "1D1128",
+};
 export default function App() {
   const [lengthInput, setLengthInput] = useState("");
   const [widthInput, setWidthInput] = useState("");
@@ -29,6 +37,10 @@ export default function App() {
   const [contingencyInput, setContingencyInput] = useState(0);
   const [plasterData, setPlasterData] = useState([]); // Store plaster data
   const [data, setData] = useState([]);
+  const [contingencyNeeded, setContingencyNeeded] = useState(0);
+  const [totalPlasterNeeded, setTotalPlasterNeeded] = useState(0);
+  const [totalArea, setTotalArea] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   let currentPlaster = null;
   // set up dtatbase and fetch plasters
   useEffect(() => {
@@ -58,9 +70,36 @@ export default function App() {
   // helper function that call the main calculation function. This is passed to the
   // output display for use as a onClick function
   const handleCalculation = () => {
-    console.log(
-      `selected plaster inside handle calc func ${selectedPlaster.plasterName},${selectedPlaster.coveragePerMMperSQM}`
-    );
+    const length = parseFloat(lengthInput);
+    const width = parseFloat(widthInput);
+    const thickness = parseFloat(thicknessInput);
+    const contingency = parseFloat(contingencyInput);
+
+    // Validation checks
+    if (isNaN(length) || length <= 0) {
+      setErrorMessage("Please enter a valid length greater than 0.");
+      return;
+    }
+    if (isNaN(width) || width <= 0) {
+      setErrorMessage("Please enter a valid width greater than 0.");
+      return;
+    }
+    if (isNaN(thickness) || thickness <= 0) {
+      setErrorMessage("Please enter a valid thickness greater than 0.");
+      return;
+    }
+    if (isNaN(contingency) || contingency < 0) {
+      setErrorMessage(
+        "Please enter a valid contingency percentage (0 or greater)."
+      );
+      return;
+    }
+    if (!selectedPlaster) {
+      setErrorMessage("Please select a plaster");
+      return;
+    }
+
+    setErrorMessage(""); // Clear error message
     CalculateSum(
       lengthInput,
       widthInput,
@@ -69,20 +108,27 @@ export default function App() {
       setPlasterNeeded,
       setBagsNeeded,
       contingencyInput,
-      setContingencyInput
+      setContingencyInput,
+      setContingencyNeeded,
+      setTotalPlasterNeeded,
+      setTotalArea
     );
   };
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
-        <Text style={styles.title}>Plaster Calculator</Text>
+        <Text style={styles.title}>PLASTER CALCULATOR</Text>
         <HorizontalRule />
+        <PlasterTypeSwitch />
         <PlasterDropdown
           selectedPlaster={selectedPlaster}
           setSelectedPlaster={setSelectedPlaster}
           plasters={plasterData} // Pass plaster data as a prop
         />
         {/* <DisplayContainer data={data} /> */}
+        {errorMessage ? (
+          <Text style={{ color: "red" }}>{errorMessage}</Text>
+        ) : null}
         <InputDisplayArea
           lengthInput={lengthInput}
           widthInput={widthInput}
@@ -94,14 +140,16 @@ export default function App() {
           setContingencyInput={setContingencyInput}
           calculateSum={handleCalculation} //passsing the function to display onClick
         />
-        <HorizontalRule />
-        <Text style={{ color: "white", fontSize: 25 }}>Results</Text>
-        <HorizontalRule />
+        {/* <HorizontalRule /> */}
+        <Text style={{ color: "darkgrey", fontSize: 27 }}>RESULTS</Text>
+        {/* <HorizontalRule /> */}
         <OutputDisplayArea
           label={"Area Total :"}
-          sum={outputResult}
+          sum={totalArea}
           plasterNeeded={plasterNeeded}
           bagsNeeded={bagsNeeded}
+          contingencyNeeded={contingencyNeeded}
+          totalPlasterNeeded={totalPlasterNeeded}
         ></OutputDisplayArea>
         <StatusBar style="auto" />
       </View>
@@ -113,23 +161,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: "linen",
     alignItems: "center",
     marginTop: 30,
     width: "100%",
   },
   title: {
-    fontSize: 30,
+    fontSize: 27,
     paddingTop: 10,
     marginBottom: 10,
-    color: "silver",
+    color: "darkgrey",
   },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 30,
-    backgroundColor: "white",
+    backgroundColor: "linen",
     width: "100%",
   },
 });

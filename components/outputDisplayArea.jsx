@@ -13,7 +13,14 @@ import LabeledTextInput from "./textInput"; // Custom text input with a label
 import SubmitButton from "./submitButton"; // Custom button component
 
 // Functional component for displaying a group of input fields
-function OutputDisplayArea({ label, sum, plasterNeeded, bagsNeeded }) {
+function OutputDisplayArea({
+  label,
+  sum,
+  plasterNeeded,
+  bagsNeeded,
+  contingencyNeeded,
+  totalPlasterNeeded,
+}) {
   return (
     <View style={styles.outerContainer}>
       <View style={styles.container}>
@@ -31,13 +38,13 @@ function OutputDisplayArea({ label, sum, plasterNeeded, bagsNeeded }) {
       <View style={styles.container}>
         <Text style={styles.label}>Contingency required KG : </Text>
         <View style={styles.outputBox}>
-          <Text style={styles.outputText}>{sum}</Text>
+          <Text style={styles.outputText}>{contingencyNeeded}</Text>
         </View>
       </View>
       <View style={styles.container}>
         <Text style={styles.label}>Total Plaster required KG: </Text>
         <View style={styles.outputBox}>
-          <Text style={styles.outputText}>{bagsNeeded}</Text>
+          <Text style={styles.outputText}>{totalPlasterNeeded}</Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -66,13 +73,13 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   label: {
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 5,
     color: "#333",
   },
   outputBox: {
     height: 40,
-    width: "15%",
+    width: "27%",
     borderColor: "#ccc",
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -88,6 +95,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "white",
     width: "90%",
+    marginTop: 20,
 
     borderRadius: 10,
     // Shadow styles for both iOS and Android
