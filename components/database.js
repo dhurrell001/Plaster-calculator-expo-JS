@@ -62,7 +62,33 @@ export const getPlasters = async (callback) => {
     console.error("Error fetching data from database: ", error);
   }
 };
-export get
+export const getToggledPlasters = async (
+  InternalisEnabled,
+  ExternalisEnabled,
+  callback
+) => {
+  try {
+    const db = await dbPromise;
+
+    let query = "SELECT * FROM plasters"; // Base query
+    if (InternalisEnabled && ExternalisEnabled) {
+      // Both switches are on, fetch all plasters
+      query = "SELECT * FROM plasters;";
+    } else if (InternalisEnabled) {
+      // Only internal plasters are enabled
+      query = "SELECT * FROM plasters WHERE plasterType = 'INTERNAL';";
+    } else if (ExternalisEnabled) {
+      // Only external plasters are enabled
+      query = "SELECT * FROM plasters WHERE plasterType = 'EXTERNAL';";
+    }
+
+    const result = await db.getAllAsync(query);
+    callback(result);
+  } catch (error) {
+    console.error("Error fetching data from database: ", error);
+  }
+};
+
 /**
  * Deletes a specific plaster record by its unique ID.
  * This function is asynchronous and executes a SQL query to delete a plaster based on its ID.
