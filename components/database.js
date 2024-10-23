@@ -62,6 +62,7 @@ export const getPlasters = async (callback) => {
     console.error("Error fetching data from database: ", error);
   }
 };
+export get
 /**
  * Deletes a specific plaster record by its unique ID.
  * This function is asynchronous and executes a SQL query to delete a plaster based on its ID.
