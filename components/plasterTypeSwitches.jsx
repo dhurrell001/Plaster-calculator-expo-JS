@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { View, Switch, StyleSheet, Text } from "react-native";
 
-const PlasterTypeSwitch = () => {
-  const [InternalisEnabled, setInternalIsEnabled] = useState(false);
-  const [ExternalisEnabled, setExternalIsEnabled] = useState(false);
-
+const PlasterTypeSwitch = ({
+  ExternalisEnabled,
+  setExternalIsEnabled,
+  InternalisEnabled,
+  setInternalIsEnabled,
+}) => {
   const toggleInternalSwitch = () =>
     setInternalIsEnabled((previousState) => !previousState);
   const toggleExternalSwitch = () =>
@@ -13,7 +15,7 @@ const PlasterTypeSwitch = () => {
   return (
     <View style={styles.container}>
       <View style={styles.switchContainer}>
-        <Text style={styles.text}>Internal</Text>
+        <Text style={styles.text}>INTERNAL</Text>
         <Switch
           trackColor={{ false: "#767577", true: "darkgrey" }}
           thumbColor={InternalisEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -23,9 +25,9 @@ const PlasterTypeSwitch = () => {
         />
       </View>
       <View style={styles.switchContainer}>
-        <Text style={styles.text}>External</Text>
+        <Text style={styles.text}>EXTERNAL</Text>
         <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          trackColor={{ false: "#767577", true: "darkgrey" }}
           thumbColor={ExternalisEnabled ? "#f5dd4b" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleExternalSwitch}
@@ -51,6 +53,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 17,
     marginRight: 10, // Space between text and switch
+    color: "darkgrey",
   },
 });
 
