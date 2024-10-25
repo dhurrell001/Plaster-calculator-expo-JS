@@ -45,7 +45,9 @@ export default function App() {
   const [InternalisEnabled, setInternalIsEnabled] = useState(true);
   const [ExternalisEnabled, setExternalIsEnabled] = useState(true);
   let currentPlaster = null;
+
   // set up dtatbase and fetch plasters
+
   useEffect(() => {
     const initializeDatabase = async () => {
       try {
@@ -65,6 +67,9 @@ export default function App() {
 
     initializeDatabase(); // Call the async function
   }, []); // This useEffect runs once on mount
+
+  // Fetch plasters depending on state of plaster toggle switches ///////
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -81,13 +86,14 @@ export default function App() {
     fetchData(); // Call the async function
   }, [InternalisEnabled, ExternalisEnabled]); // Depend on switch states
 
-  // Debugging log to check the data contentsa
+  // Debugging log to check the data contents
+
   useEffect(() => {
     for (let item of data) {
       console.log(item);
     }
-    // console.log("/n Database Data: ", data); // Log to check if data is fetched correctly
   }, [data]);
+
   // helper function that call the main calculation function. This is passed to the
   // output display for use as a onClick function
   const handleCalculation = () => {
