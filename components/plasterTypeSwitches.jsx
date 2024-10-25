@@ -40,7 +40,7 @@ const PlasterTypeSwitch = ({
       <View style={styles.switchContainer}>
         <Text style={styles.text}>EXTERNAL</Text>
         <Switch
-          trackColor={{ false: "#767577", true: "" }}
+          trackColor={{ false: "#767577", true: "darkgrey" }}
           thumbColor={ExternalisEnabled ? "#f5dd4b" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleExternalSwitch}

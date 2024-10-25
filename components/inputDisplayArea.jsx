@@ -70,6 +70,7 @@ function InputDisplayArea({
         placeholder={"0   "} // Placeholder text for thickness input
         value={contingencyInput} // Value controlled externally
         onChangeText={setContingencyInput} // Update thickness value on input change
+        textColor="black"
       />
 
       {/* Button to trigger the calculateSum function */}

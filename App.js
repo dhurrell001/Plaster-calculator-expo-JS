@@ -10,12 +10,11 @@ import OutputDisplayArea from "./components/outputDisplayArea";
 import PlasterDropdown from "./components/dropdownPicker.jsx";
 import CalculateSum from "./components/calculationFunctions.js";
 import PlasterTypeSwitch from "./components/plasterTypeSwitches.jsx";
+import AppMain from "./components/appMain.jsx";
 import {
   setupDatabase,
   getPlasters,
   clearDatabase,
-  getPlasterById,
-  getPlasterByName,
   getToggledPlasters,
 } from "./components/database";
 import React, { useEffect, useState } from "react";
@@ -149,75 +148,103 @@ export default function App() {
     }
     setErrorMessage(""); // Clear error message
   };
+
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style={styles.container}>
-        <Text style={styles.title}>PLASTER CALCULATOR</Text>
-        <HorizontalRule />
-        <PlasterTypeSwitch
-          InternalisEnabled={InternalisEnabled}
-          ExternalisEnabled={ExternalisEnabled}
-          setInternalIsEnabled={setInternalIsEnabled}
-          setExternalIsEnabled={setExternalIsEnabled}
-        />
-        <PlasterDropdown
-          selectedPlaster={selectedPlaster}
-          setSelectedPlaster={setSelectedPlaster}
-          plasters={plasterData} // Pass plaster data as a prop
-        />
-        {/* <DisplayContainer data={data} /> */}
-        {errorMessage ? (
-          <Text style={{ color: "red" }}>{errorMessage}</Text>
-        ) : null}
-        <InputDisplayArea
-          lengthInput={lengthInput}
-          widthInput={widthInput}
-          thicknessInput={thicknessInput}
-          setLengthInput={setLengthInput}
-          setWidthInput={setWidthInput}
-          setThicknessInput={setThicknessInput}
-          contingencyInput={contingencyInput}
-          setContingencyInput={setContingencyInput}
-          calculateSum={handleCalculation} //passsing the function to display onClick
-        />
-        {/* <HorizontalRule /> */}
-        <Text style={{ color: "darkgrey", fontSize: 27 }}>RESULTS</Text>
-        {/* <HorizontalRule /> */}
-        <OutputDisplayArea
-          label={"Area Total :"}
-          sum={totalArea}
-          plasterNeeded={plasterNeeded}
-          bagsNeeded={bagsNeeded}
-          contingencyNeeded={contingencyNeeded}
-          totalPlasterNeeded={totalPlasterNeeded}
-        ></OutputDisplayArea>
-        <StatusBar style="auto" />
-      </View>
-    </ScrollView>
+    <AppMain
+      lengthInput={lengthInput}
+      widthInput={widthInput}
+      thicknessInput={thicknessInput}
+      setLengthInput={setLengthInput}
+      setWidthInput={setWidthInput}
+      setThicknessInput={setThicknessInput}
+      handleCalculation={handleCalculation}
+      selectedPlaster={selectedPlaster}
+      setSelectedPlaster={setSelectedPlaster}
+      errorMessage={errorMessage}
+      totalArea={totalArea}
+      plasterNeeded={plasterNeeded}
+      bagsNeeded={bagsNeeded}
+      contingencyNeeded={contingencyNeeded}
+      totalPlasterNeeded={totalPlasterNeeded}
+      InternalisEnabled={InternalisEnabled}
+      ExternalisEnabled={ExternalisEnabled}
+      setInternalIsEnabled={setInternalIsEnabled}
+      setExternalIsEnabled={setExternalIsEnabled}
+      setContingencyInput={setContingencyInput}
+      contingencyInput={contingencyInput}
+      plasterData={plasterData}
+    />
   );
 }
+//   return (
+//     <ScrollView contentContainerStyle={styles.scrollViewContent}>
+//       <View style={styles.container}>
+//         <Text style={styles.title}>PLASTER CALCULATOR</Text>
+//         <HorizontalRule />
+//         <PlasterTypeSwitch
+//           InternalisEnabled={InternalisEnabled}
+//           ExternalisEnabled={ExternalisEnabled}
+//           setInternalIsEnabled={setInternalIsEnabled}
+//           setExternalIsEnabled={setExternalIsEnabled}
+//         />
+//         <PlasterDropdown
+//           selectedPlaster={selectedPlaster}
+//           setSelectedPlaster={setSelectedPlaster}
+//           plasters={plasterData} // Pass plaster data as a prop
+//         />
+//         {/* <DisplayContainer data={data} /> */}
+//         {errorMessage ? (
+//           <Text style={{ color: "red" }}>{errorMessage}</Text>
+//         ) : null}
+//         <InputDisplayArea
+//           lengthInput={lengthInput}
+//           widthInput={widthInput}
+//           thicknessInput={thicknessInput}
+//           setLengthInput={setLengthInput}
+//           setWidthInput={setWidthInput}
+//           setThicknessInput={setThicknessInput}
+//           contingencyInput={contingencyInput}
+//           setContingencyInput={setContingencyInput}
+//           calculateSum={handleCalculation} //passsing the function to display onClick
+//         />
+//         {/* <HorizontalRule /> */}
+//         <Text style={{ color: "darkgrey", fontSize: 27 }}>RESULTS</Text>
+//         {/* <HorizontalRule /> */}
+//         <OutputDisplayArea
+//           label={"Area Total :"}
+//           sum={totalArea}
+//           plasterNeeded={plasterNeeded}
+//           bagsNeeded={bagsNeeded}
+//           contingencyNeeded={contingencyNeeded}
+//           totalPlasterNeeded={totalPlasterNeeded}
+//         ></OutputDisplayArea>
+//         <StatusBar style="auto" />
+//       </View>
+//     </ScrollView>
+//   );
+// }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "linen",
-    alignItems: "center",
-    marginTop: 30,
-    width: "100%",
-  },
-  title: {
-    fontSize: 27,
-    paddingTop: 10,
-    marginBottom: 10,
-    color: "slategrey",
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 30,
-    backgroundColor: "linen",
-    width: "100%",
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: "column",
+//     backgroundColor: "linen",
+//     alignItems: "center",
+//     marginTop: 30,
+//     width: "100%",
+//   },
+//   title: {
+//     fontSize: 27,
+//     paddingTop: 10,
+//     marginBottom: 10,
+//     color: "slategrey",
+//   },
+//   scrollViewContent: {
+//     flexGrow: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     paddingVertical: 30,
+//     backgroundColor: "linen",
+//     width: "100%",
+//   },
+// });
