@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   button: {
-    backgroundColor: "white", // Button background color
+    backgroundColor: "linen", // Button background color
     paddingVertical: 10, // Vertical padding
     paddingHorizontal: 20, // Horizontal padding
     borderRadius: 5, // Rounded corners

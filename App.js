@@ -16,6 +16,7 @@ import {
   clearDatabase,
   getPlasterById,
   getPlasterByName,
+  getToggledPlasters,
 } from "./components/database";
 import React, { useEffect, useState } from "react";
 
@@ -41,6 +42,8 @@ export default function App() {
   const [totalPlasterNeeded, setTotalPlasterNeeded] = useState(0);
   const [totalArea, setTotalArea] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [InternalisEnabled, setInternalIsEnabled] = useState(true);
+  const [ExternalisEnabled, setExternalIsEnabled] = useState(true);
   let currentPlaster = null;
   // set up dtatbase and fetch plasters
   useEffect(() => {
@@ -53,6 +56,7 @@ export default function App() {
           setPlasterData(result); // Set the plaster data in state
         });
       } catch (error) {
+        setErrorMessage("Error loading database");
         console.error(
           "Error initializing the database and fetching plaster: ",
           error
@@ -62,64 +66,104 @@ export default function App() {
 
     initializeDatabase(); // Call the async function
   }, []); // This useEffect runs once on mount
+  useEffect(() => {
+    const fetchPlasterData = async () => {
+      try {
+        console.log("inside fetchPlasterData app.j");
+
+        await getToggledPlasters(
+          InternalisEnabled,
+          ExternalisEnabled,
+          (result) => {
+            if (result && result.length > 0) {
+              setPlasterData(result); // Update the state
+            } else {
+              console.log("No toggled plasters found");
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Error fetching toggled plasters: ", error);
+        setErrorMessage("Error retrieving plasters.");
+      }
+    };
+
+    fetchPlasterData();
+  }, [InternalisEnabled, ExternalisEnabled]); // Re-run when switches change
 
   // Debugging log to check the data contentsa
   useEffect(() => {
-    console.log("Database Data: ", data); // Log to check if data is fetched correctly
+    for (let item of data) {
+      console.log(item);
+    }
+    // console.log("/n Database Data: ", data); // Log to check if data is fetched correctly
   }, [data]);
   // helper function that call the main calculation function. This is passed to the
   // output display for use as a onClick function
   const handleCalculation = () => {
-    const length = parseFloat(lengthInput);
-    const width = parseFloat(widthInput);
-    const thickness = parseFloat(thicknessInput);
-    const contingency = parseFloat(contingencyInput);
+    try {
+      const length = parseFloat(lengthInput);
+      const width = parseFloat(widthInput);
+      const thickness = parseFloat(thicknessInput);
+      const contingency = parseFloat(contingencyInput);
 
-    // Validation checks
-    if (isNaN(length) || length <= 0) {
-      setErrorMessage("Please enter a valid length greater than 0.");
-      return;
-    }
-    if (isNaN(width) || width <= 0) {
-      setErrorMessage("Please enter a valid width greater than 0.");
-      return;
-    }
-    if (isNaN(thickness) || thickness <= 0) {
-      setErrorMessage("Please enter a valid thickness greater than 0.");
-      return;
-    }
-    if (isNaN(contingency) || contingency < 0) {
-      setErrorMessage(
-        "Please enter a valid contingency percentage (0 or greater)."
+      // Validation checks
+      if (isNaN(length) || length <= 0) {
+        setErrorMessage("Please enter a valid length greater than 0.");
+        return;
+      }
+      if (isNaN(width) || width <= 0) {
+        setErrorMessage("Please enter a valid width greater than 0.");
+        return;
+      }
+      if (isNaN(thickness) || thickness <= 0) {
+        setErrorMessage("Please enter a valid thickness greater than 0.");
+        return;
+      }
+      if (isNaN(contingency) || contingency < 0) {
+        setErrorMessage(
+          "Please enter a valid contingency percentage (0 or greater)."
+        );
+        return;
+      }
+      if (!selectedPlaster) {
+        setErrorMessage("Please select a plaster");
+        return;
+      }
+
+      setErrorMessage(""); // Clear error message
+      CalculateSum(
+        length,
+        width,
+        thickness,
+        selectedPlaster,
+        setPlasterNeeded,
+        setBagsNeeded,
+        contingency,
+        setContingencyInput,
+        setContingencyNeeded,
+        setTotalPlasterNeeded,
+        setTotalArea
       );
-      return;
+    } catch (error) {
+      console.error("Error during calculation: ", error);
+      setErrorMessage(
+        "An error occurred during calculation. Please check your inputs."
+      );
     }
-    if (!selectedPlaster) {
-      setErrorMessage("Please select a plaster");
-      return;
-    }
-
     setErrorMessage(""); // Clear error message
-    CalculateSum(
-      lengthInput,
-      widthInput,
-      thicknessInput,
-      selectedPlaster,
-      setPlasterNeeded,
-      setBagsNeeded,
-      contingencyInput,
-      setContingencyInput,
-      setContingencyNeeded,
-      setTotalPlasterNeeded,
-      setTotalArea
-    );
   };
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.title}>PLASTER CALCULATOR</Text>
         <HorizontalRule />
-        <PlasterTypeSwitch />
+        <PlasterTypeSwitch
+          InternalisEnabled={InternalisEnabled}
+          ExternalisEnabled={ExternalisEnabled}
+          setInternalIsEnabled={setInternalIsEnabled}
+          setExternalIsEnabled={setExternalIsEnabled}
+        />
         <PlasterDropdown
           selectedPlaster={selectedPlaster}
           setSelectedPlaster={setSelectedPlaster}
@@ -170,7 +214,7 @@ const styles = StyleSheet.create({
     fontSize: 27,
     paddingTop: 10,
     marginBottom: 10,
-    color: "darkgrey",
+    color: "slategrey",
   },
   scrollViewContent: {
     flexGrow: 1,

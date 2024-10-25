@@ -74,7 +74,7 @@ function InputDisplayArea({
 
       {/* Button to trigger the calculateSum function */}
       <SubmitButton
-        title="Calculate" // Label for the button
+        title="CALCULATE" // Label for the button
         onPress={calculateSum} // Function to run when button is pressed
       />
     </View>
