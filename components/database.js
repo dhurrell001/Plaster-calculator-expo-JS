@@ -52,20 +52,20 @@ export const setupDatabase = async () => {
 };
 
 // Function to fetch plaster records from the database
-export const getPlasters = async (callback) => {
+export const getPlasters = async () => {
   try {
     console.log("Fetching plasters...");
     const db = await dbPromise;
     const result = await db.getAllAsync("SELECT * FROM plasters;");
-    callback(result);
+    return result;
   } catch (error) {
     console.error("Error fetching data from database: ", error);
+    throw error;
   }
 };
 export const getToggledPlasters = async (
   InternalisEnabled,
-  ExternalisEnabled,
-  callback
+  ExternalisEnabled
 ) => {
   try {
     const db = await dbPromise;
@@ -83,9 +83,10 @@ export const getToggledPlasters = async (
     }
 
     const result = await db.getAllAsync(query);
-    callback(result);
+    return result;
   } catch (error) {
     console.error("Error fetching data from database: ", error);
+    throw error;
   }
 };
 

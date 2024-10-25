@@ -51,10 +51,9 @@ export default function App() {
       try {
         await clearDatabase(); // Clear the database first (optional)
         await setupDatabase(); // Setup and insert initial data into the database
-        await getPlasters((result) => {
-          console.log("Plaster data: ", result);
-          setPlasterData(result); // Set the plaster data in state
-        });
+        const plasters = await getPlasters(); // Await the result directly
+        console.log("Plaster data: ", plasters);
+        setPlasterData(plasters); // Set the plaster data in state
       } catch (error) {
         setErrorMessage("Error loading database");
         console.error(
@@ -67,29 +66,20 @@ export default function App() {
     initializeDatabase(); // Call the async function
   }, []); // This useEffect runs once on mount
   useEffect(() => {
-    const fetchPlasterData = async () => {
+    const fetchData = async () => {
       try {
-        console.log("inside fetchPlasterData app.j");
-
-        await getToggledPlasters(
+        const data = await getToggledPlasters(
           InternalisEnabled,
-          ExternalisEnabled,
-          (result) => {
-            if (result && result.length > 0) {
-              setPlasterData(result); // Update the state
-            } else {
-              console.log("No toggled plasters found");
-            }
-          }
+          ExternalisEnabled
         );
+        setPlasterData(data); // Update state with returned data
       } catch (error) {
-        console.error("Error fetching toggled plasters: ", error);
-        setErrorMessage("Error retrieving plasters.");
+        setErrorMessage(error.message); // Handle error messages
       }
     };
 
-    fetchPlasterData();
-  }, [InternalisEnabled, ExternalisEnabled]); // Re-run when switches change
+    fetchData(); // Call the async function
+  }, [InternalisEnabled, ExternalisEnabled]); // Depend on switch states
 
   // Debugging log to check the data contentsa
   useEffect(() => {
