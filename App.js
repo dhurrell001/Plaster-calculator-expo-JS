@@ -56,6 +56,7 @@ export default function App() {
           setPlasterData(result); // Set the plaster data in state
         });
       } catch (error) {
+        setErrorMessage("Error loading database");
         console.error(
           "Error initializing the database and fetching plaster: ",
           error
@@ -69,8 +70,7 @@ export default function App() {
     const fetchPlasterData = async () => {
       try {
         console.log("inside fetchPlasterData app.j");
-        // console.log("Internal switch is now: ", InternalisEnabled);
-        // console.log("External switch is now: ", ExternalisEnabled);
+
         await getToggledPlasters(
           InternalisEnabled,
           ExternalisEnabled,
@@ -84,6 +84,7 @@ export default function App() {
         );
       } catch (error) {
         console.error("Error fetching toggled plasters: ", error);
+        setErrorMessage("Error retrieving plasters.");
       }
     };
 
@@ -92,54 +93,65 @@ export default function App() {
 
   // Debugging log to check the data contentsa
   useEffect(() => {
-    console.log("Database Data: ", data); // Log to check if data is fetched correctly
+    for (let item of data) {
+      console.log(item);
+    }
+    // console.log("/n Database Data: ", data); // Log to check if data is fetched correctly
   }, [data]);
   // helper function that call the main calculation function. This is passed to the
   // output display for use as a onClick function
   const handleCalculation = () => {
-    const length = parseFloat(lengthInput);
-    const width = parseFloat(widthInput);
-    const thickness = parseFloat(thicknessInput);
-    const contingency = parseFloat(contingencyInput);
+    try {
+      const length = parseFloat(lengthInput);
+      const width = parseFloat(widthInput);
+      const thickness = parseFloat(thicknessInput);
+      const contingency = parseFloat(contingencyInput);
 
-    // Validation checks
-    if (isNaN(length) || length <= 0) {
-      setErrorMessage("Please enter a valid length greater than 0.");
-      return;
-    }
-    if (isNaN(width) || width <= 0) {
-      setErrorMessage("Please enter a valid width greater than 0.");
-      return;
-    }
-    if (isNaN(thickness) || thickness <= 0) {
-      setErrorMessage("Please enter a valid thickness greater than 0.");
-      return;
-    }
-    if (isNaN(contingency) || contingency < 0) {
-      setErrorMessage(
-        "Please enter a valid contingency percentage (0 or greater)."
+      // Validation checks
+      if (isNaN(length) || length <= 0) {
+        setErrorMessage("Please enter a valid length greater than 0.");
+        return;
+      }
+      if (isNaN(width) || width <= 0) {
+        setErrorMessage("Please enter a valid width greater than 0.");
+        return;
+      }
+      if (isNaN(thickness) || thickness <= 0) {
+        setErrorMessage("Please enter a valid thickness greater than 0.");
+        return;
+      }
+      if (isNaN(contingency) || contingency < 0) {
+        setErrorMessage(
+          "Please enter a valid contingency percentage (0 or greater)."
+        );
+        return;
+      }
+      if (!selectedPlaster) {
+        setErrorMessage("Please select a plaster");
+        return;
+      }
+
+      setErrorMessage(""); // Clear error message
+      CalculateSum(
+        length,
+        width,
+        thickness,
+        selectedPlaster,
+        setPlasterNeeded,
+        setBagsNeeded,
+        contingency,
+        setContingencyInput,
+        setContingencyNeeded,
+        setTotalPlasterNeeded,
+        setTotalArea
       );
-      return;
+    } catch (error) {
+      console.error("Error during calculation: ", error);
+      setErrorMessage(
+        "An error occurred during calculation. Please check your inputs."
+      );
     }
-    if (!selectedPlaster) {
-      setErrorMessage("Please select a plaster");
-      return;
-    }
-
     setErrorMessage(""); // Clear error message
-    CalculateSum(
-      lengthInput,
-      widthInput,
-      thicknessInput,
-      selectedPlaster,
-      setPlasterNeeded,
-      setBagsNeeded,
-      contingencyInput,
-      setContingencyInput,
-      setContingencyNeeded,
-      setTotalPlasterNeeded,
-      setTotalArea
-    );
   };
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -202,7 +214,7 @@ const styles = StyleSheet.create({
     fontSize: 27,
     paddingTop: 10,
     marginBottom: 10,
-    color: "darkgrey",
+    color: "slategrey",
   },
   scrollViewContent: {
     flexGrow: 1,
