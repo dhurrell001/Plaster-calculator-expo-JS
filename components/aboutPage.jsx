@@ -2,7 +2,11 @@ import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 
 const AboutPage = () => {
-  return <View style={styles.container}>this some text</View>;
+  return (
+    <View style={styles.container}>
+      <Text>this some text</Text>
+    </View>
+  );
 };
 const styles = StyleSheet.create({
   container: {

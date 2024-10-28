@@ -1,11 +1,13 @@
 import React from "react";
 import { AppProvider } from "./components/appMainContext";
 import AppMain from "./components/appMain";
+import AboutPage from "./components/aboutPage";
 
 export default function App() {
   return (
     <AppProvider>
       <AppMain />
+      {/* <AboutPage /> */}
     </AppProvider>
   );
 }
