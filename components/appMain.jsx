@@ -63,7 +63,7 @@ const AppMain = () => {
         />
         <Text style={{ color: "slategrey", fontSize: 27 }}>RESULTS</Text>
         <OutputDisplayArea
-          label={"Area Total:"}
+          label={"Total area (Square metres):"}
           sum={outputResults.totalArea}
           plasterNeeded={outputResults.plasterNeeded}
           bagsNeeded={outputResults.bagsNeeded}
