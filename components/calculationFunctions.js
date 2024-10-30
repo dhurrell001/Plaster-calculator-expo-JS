@@ -46,13 +46,9 @@ const CalculateSum = (
     );
     setPlasterNeeded(plasterNeeded);
     console.log(`plaster needed ${plasterNeeded}`);
-    // calculate the amount of bags needed
-    const bagsNeeded = calculateBagsNeeded(
-      plasterNeeded,
-      selectedPlaster.bagSize
-    );
-    setBagsNeeded(bagsNeeded);
+
     // Calculate contingency needed
+    let totalPlasterNeeded = plasterNeeded; // sets total plaster needed for bagsNeeded call below, outside of if statement scope
     const contingency = parseFloat(contingencyInput);
     if (!isNaN(contingency)) {
       const contingencyNeeded = calculateContingencyNeeded(
@@ -60,8 +56,15 @@ const CalculateSum = (
         contingency
       );
       setContingencyNeeded(contingencyNeeded);
-      setTotalPlasterNeeded(contingencyNeeded + plasterNeeded);
+      totalPlasterNeeded = contingencyNeeded + plasterNeeded;
+      setTotalPlasterNeeded(totalPlasterNeeded);
     }
+    // calculate the amount of bags needed
+    const bagsNeeded = calculateBagsNeeded(
+      totalPlasterNeeded,
+      selectedPlaster.bagSize
+    );
+    setBagsNeeded(bagsNeeded);
   } else {
     console.log("Please enter valid numbers");
   } // Error message for invalid inputs

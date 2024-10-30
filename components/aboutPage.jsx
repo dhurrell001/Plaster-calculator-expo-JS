@@ -30,7 +30,7 @@ const AboutPage = () => {
 const styles = StyleSheet.create({
   container: {
     // padding: 10,
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: "linen",
     alignItems: "center",
     width: "100%",
