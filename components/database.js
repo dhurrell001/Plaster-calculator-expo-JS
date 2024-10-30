@@ -36,11 +36,20 @@ export const setupDatabase = async () => {
         ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL'),
         ('British Gypsum Hardwall', 3, 25, 'INTERNAL'),
         ('British Gypsum Bonding', 3, 25, 'INTERNAL'),
+        ('British Gypsum Pure Finish',1.25,25,'INTERNAL'),
+        ('British Gypsum One Coat',0.85,25,'INTERNAL'),
         ('K-Rend Silicone K1',1.6,25,'EXTERNAL'),
         ('k-Rend HP12 Base',1.8,25,'EXTERNAL'),
         ('K-Rend Silicone TC10',1.8,25,'EXTERNAL'),
         ('K-Rend Silicone TC15',2.5,25,'EXTERNAL'),
-        ('K-Rend Silicone TC30',5,25,'EXTERNAL')`
+        ('K-Rend Silicone TC30',5,25,'EXTERNAL'),
+        ('Weberpral M',1.66,25,'EXTERNAL'),
+        ('Weberpral MF',2.07,25,'EXTERNAL'),
+        ('Webrend Onecoat Dash',1.56,25,'EXTERNAL'),
+        ('Webrend OCR',1.79,25,'EXTERNAL'),
+        ('Webrend LAC',6.5,20,'EXTERNAL'),
+        
+        ('Ecorend MR1',1.5,25,'EXTERNAL')`
       );
       console.log("Initial plaster data inserted.");
     } else {
