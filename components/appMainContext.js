@@ -1,26 +1,35 @@
-// AppContext.js
+// Import necessary modules from React and other files
 import React, { createContext, useState, useEffect } from "react";
 import {
   setupDatabase,
   getPlasters,
   clearDatabase,
   getToggledPlasters,
-} from "./database";
-import CalculateSum from "./calculationFunctions.js";
+} from "./database"; // Database utility functions
+import CalculateSum from "./calculationFunctions.js"; // Calculation utility function
 
+// Create a context to store and share app data
 export const AppContext = createContext();
 
+//AppProvider component serves as a context provider to manage and distribute app-wide
+// states, such as input values, plaster data, and calculation results.
+// @param {Object} children - The wrapped components that will have access to this context.
+
 export const AppProvider = ({ children }) => {
+  // State variables for user inputs
   const [lengthInput, setLengthInput] = useState("");
   const [widthInput, setWidthInput] = useState("");
   const [thicknessInput, setThicknessInput] = useState("");
   const [contingencyInput, setContingencyInput] = useState(0);
-  const [selectedPlaster, setSelectedPlaster] = useState(null);
-  const [plasterData, setPlasterData] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [InternalisEnabled, setInternalIsEnabled] = useState(true);
-  const [ExternalisEnabled, setExternalIsEnabled] = useState(true);
+  const [selectedPlaster, setSelectedPlaster] = useState(null); // Chosen plaster from dropdown
+  const [plasterData, setPlasterData] = useState([]); // Array of available plaster data
+  const [errorMessage, setErrorMessage] = useState(""); // For displaying validation or error messages
 
+  // State variables for toggle settings for filtering plaster types
+  const [InternalisEnabled, setInternalIsEnabled] = useState(true); // Toggle for internal plasters
+  const [ExternalisEnabled, setExternalIsEnabled] = useState(true); // Toggle for external plasters
+
+  // State for storing calculation results to be displayed
   const [outputResults, setOutputResults] = useState({
     totalArea: 0,
     plasterNeeded: 0,
@@ -29,21 +38,23 @@ export const AppProvider = ({ children }) => {
     totalPlasterNeeded: 0,
   });
 
+  // useEffect hook to initialize database upon component mount
   useEffect(() => {
     const initializeDatabase = async () => {
       try {
-        await clearDatabase();
-        await setupDatabase();
-        const plasters = await getPlasters();
-        setPlasterData(plasters);
+        await clearDatabase(); // Clear any existing database for fresh setup
+        await setupDatabase(); // Set up a new database
+        const plasters = await getPlasters(); // Fetch all plasters data
+        setPlasterData(plasters); // Set fetched plasters data to state
       } catch (error) {
-        setErrorMessage("Error loading database");
+        setErrorMessage("Error loading database"); // Display error if database fails to load
         console.error("Database error:", error);
       }
     };
-    initializeDatabase();
+    initializeDatabase(); // Call the database initialization function
   }, []);
 
+  // Fetches plaster data based on internal/external toggle states whenever they change
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,21 +62,25 @@ export const AppProvider = ({ children }) => {
           InternalisEnabled,
           ExternalisEnabled
         );
-        setPlasterData(data);
+        setPlasterData(data); // Update plasterData state based on toggles
       } catch (error) {
-        setErrorMessage(error.message);
+        setErrorMessage(error.message); // Set an error message if fetching fails
       }
     };
-    fetchData();
-  }, [InternalisEnabled, ExternalisEnabled]);
+    fetchData(); // Invoke the function to fetch data
+  }, [InternalisEnabled, ExternalisEnabled]); // Dependency array to rerun on toggle state changes
 
+  /**
+   * Validates user inputs and triggers calculations by invoking CalculateSum.
+   * Results are updated in the outputResults state.
+   */
   const handleCalculation = () => {
-    const length = parseFloat(lengthInput);
-    const width = parseFloat(widthInput);
-    const thickness = parseFloat(thicknessInput);
-    const contingency = parseFloat(contingencyInput);
+    const length = parseFloat(lengthInput); // Parse length input to float
+    const width = parseFloat(widthInput); // Parse width input to float
+    const thickness = parseFloat(thicknessInput); // Parse thickness input to float
+    const contingency = parseFloat(contingencyInput); // Parse contingency input to float
 
-    // Validation checks
+    // Input validation checks
     if (isNaN(length) || length <= 0) {
       setErrorMessage("Please enter a valid length greater than 0.");
       return;
@@ -89,24 +104,25 @@ export const AppProvider = ({ children }) => {
       return;
     }
 
+    // Call CalculateSum with parsed values and callback functions for setting output results
     CalculateSum(
       length,
       width,
       thickness,
       selectedPlaster,
       (plasterNeeded) =>
-        setOutputResults((prev) => ({ ...prev, plasterNeeded })),
-      (bagsNeeded) => setOutputResults((prev) => ({ ...prev, bagsNeeded })),
+        setOutputResults((prev) => ({ ...prev, plasterNeeded })), // Set plaster needed
+      (bagsNeeded) => setOutputResults((prev) => ({ ...prev, bagsNeeded })), // Set bags needed
       contingency,
       setContingencyInput,
       (contingencyNeeded) =>
-        setOutputResults((prev) => ({ ...prev, contingencyNeeded })),
+        setOutputResults((prev) => ({ ...prev, contingencyNeeded })), // Set contingency needed
       (totalPlasterNeeded) =>
-        setOutputResults((prev) => ({ ...prev, totalPlasterNeeded })),
-      (totalArea) => setOutputResults((prev) => ({ ...prev, totalArea }))
+        setOutputResults((prev) => ({ ...prev, totalPlasterNeeded })), // Set total plaster needed
+      (totalArea) => setOutputResults((prev) => ({ ...prev, totalArea })) // Set total area
     );
 
-    setErrorMessage("");
+    setErrorMessage(""); // Clear any previous error message
   };
 
   return (
