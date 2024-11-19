@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/ExpoLogo.png",
+      "image": "./assets/ExpoLogoBlue.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
