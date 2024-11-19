@@ -12,15 +12,15 @@ const InstructionPage = () => {
         </Text>
 
         <Text style={styles.subHeader}>
-          Step 1: Choose internal or external plasters
+          Step 1: Choose between internal or external plasters
         </Text>
         <Text style={styles.paragraph}>
-          Use Internal and external toggle switches to choose the type of
+          Use internal and external toggle switches to choose the type of
           plaster. Both internal and external plasters will be displayed by
           default.
         </Text>
 
-        <Text style={styles.subHeader}>Step 2: Select Plaster Type</Text>
+        <Text style={styles.subHeader}>Step 2: Select Plaster </Text>
         <Text style={styles.paragraph}>
           Choose from the dropdown menu the type of plaster you wish to
           calculate
@@ -37,11 +37,7 @@ const InstructionPage = () => {
             • Enter the thickness you wish to apply the plaster in millimetres
           </Text>
           <Text style={styles.bullet}>
-            • Enter how much contigency you wish to allow for in percentage. 0
-            is accepted for no contingency allowance.
-          </Text>
-          <Text style={styles.bullet}>
-            • Enter how much contigency you wish to allow for in percentage. 0
+            • Enter how much contigency you wish to allow for as a percentage. 0
             is accepted for no contingency allowance.
           </Text>
         </View>
@@ -58,7 +54,7 @@ const InstructionPage = () => {
 const styles = StyleSheet.create({
   container: {
     // padding: 20,
-    flex: 1,
+    // flex: 1,
     backgroundColor: "linen",
     alignItems: "center",
   },
