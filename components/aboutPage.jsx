@@ -9,19 +9,20 @@ const AboutPage = () => {
         <Text style={styles.paragraph}>
           Welcome to the Plaster Calculator! This handy tool is here to help you
           plan your plastering projects—whether you’re cozy inside or wet
-          outside!. You’ll find a wide range of plasters and renders to choose
+          outside! You’ll find a wide range of plasters and renders to choose
           from.
         </Text>
         <Text style={styles.paragraph}>
           The Contingency Option lets you adjust for real-world scenarios (we
           know manufacturers can sometimes be a tad optimistic about coverage!).
-          Just set your contingency level, and we'll add a little extra to make
-          sure you’re covered.
+          Just set your contingency level, and the Plaster Calculator will add a
+          little extra to make sure you’re covered.
         </Text>
         <Text style={styles.paragraph}>
-          All calculations are based on manufacturer technical data sheet
-          information, to be as accurate as possible. Happy spreading!
+          To be as accurate as possible all calculations are based on
+          manufacturer technical data sheet information
         </Text>
+        <Text style={styles.paragraph}>Happy spreading!</Text>
       </View>
     </ScrollView>
   );
