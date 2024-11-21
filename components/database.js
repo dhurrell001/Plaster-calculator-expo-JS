@@ -35,7 +35,7 @@ export const setupDatabase = async () => {
         VALUES 
         ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL'),
         ('British Gypsum Hardwall', 3, 25, 'INTERNAL'),
-        ('British Gypsum Bonding', 3, 25, 'INTERNAL'),
+        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL'),
         ('British Gypsum Pure Finish',1.25,25,'INTERNAL'),
         ('British Gypsum One Coat',0.85,25,'INTERNAL'),
         ('Thistle DriCoat',0.70,25,'INTERNAL'),

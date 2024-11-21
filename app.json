@@ -28,6 +28,12 @@
     },
     "plugins": [
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f2ca398f-975d-4fcc-8bfd-da4acecdda31"
+      }
+    },
+    "owner": "dhurrell007"
   }
 }
