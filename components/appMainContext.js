@@ -42,7 +42,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const initializeDatabase = async () => {
       try {
-        await clearDatabase(); // Clear any existing database for fresh setup
+        // await clearDatabase(); // Clear any existing database for fresh setup
         await setupDatabase(); // Set up a new database
         const plasters = await getPlasters(); // Fetch all plasters data
         setPlasterData(plasters); // Set fetched plasters data to state

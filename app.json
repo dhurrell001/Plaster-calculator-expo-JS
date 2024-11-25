@@ -4,7 +4,7 @@
     "slug": "Plaster-calculator-expo-JS",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ExpoLogoBlue.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/ExpoLogoBlue.png",
@@ -15,7 +15,9 @@
       "assets/**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dhurrell007.PlastercalculatorexpoJS",
+      // "buildNumber": "6"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +30,12 @@
     },
     "plugins": [
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f2ca398f-975d-4fcc-8bfd-da4acecdda31"
+      }
+    },
+    "owner": "dhurrell007"
   }
 }

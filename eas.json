@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 13.3.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "autoIncrement": true
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true,
+      "ios": {
+        "distribution": "store" // This is used for App Store submission
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "dhurrell@hotmail.co.uk",
+        "ascAppId": "6738589483" // The app ID associated with App Store Connect
+      }
+    }
+  }
+}
