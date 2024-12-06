@@ -24,20 +24,6 @@ function InputDisplayArea({
   setContingencyInput,
   calculateSum,
 }) {
-  // Function to calculate the sum (area) based on length and width inputs
-  // const calculateSum = () => {
-  //   const length = parseFloat(lengthInput); // Convert length input to float
-  //   const width = parseFloat(widthInput); // Convert width input to float
-
-  //   // If both inputs are valid numbers, calculate the area
-  //   if (!isNaN(length) && !isNaN(width)) {
-  //     setOutputResult(length * width); // Calculate and set the result
-  //     Keyboard.dismiss(); // Dismiss the keyboard after calculation
-  //   } else {
-  //     setOutputResult("Please enter valid numbers"); // Error message for invalid inputs
-  //   }
-  // };
-
   return (
     // Main container for the input fields and button
     <View style={styles.container}>
