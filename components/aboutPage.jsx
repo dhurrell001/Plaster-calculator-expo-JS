@@ -23,6 +23,9 @@ const AboutPage = () => {
           manufacturer technical data sheet information
         </Text>
         <Text style={styles.paragraph}>Happy spreading!</Text>
+        <Text style={styles.paragraph}>
+          © 2024 David Hurrell. All rights reserved.
+        </Text>
       </View>
     </ScrollView>
   );
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "slategrey",
+    color: "black",
     marginBottom: 10,
   },
 
