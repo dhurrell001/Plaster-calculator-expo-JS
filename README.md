@@ -1,4 +1,4 @@
-##Plaster Calculator App
+# Plaster Calculator App
 
 This is my first mobile app, built using JavaScript and React Native (via Expo) and now live on the Apple App Store.
 
