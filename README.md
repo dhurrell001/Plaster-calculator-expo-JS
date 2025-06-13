@@ -26,3 +26,7 @@ This project reflects both my career transition from trades to tech and my growi
   - React Native with Expo
   - Expo Go (for development and testing)
   - Deployed to Apple App Store
+
+### View in Appstore
+
+https://apps.apple.com/us/app/plaster-calculator/id6738589483?platform=iphone
