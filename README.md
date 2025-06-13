@@ -19,3 +19,10 @@ Key features include:
 
 I developed this app to solve a real-world problem I faced daily on-site — and now it’s helping others do the same.
 This project reflects both my career transition from trades to tech and my growing skills in React Native, state management, and UI design.
+
+ ## Tech Stack
+
+  - JavaScript
+  - React Native with Expo
+  - Expo Go (for development and testing)
+  - Deployed to Apple App Store
